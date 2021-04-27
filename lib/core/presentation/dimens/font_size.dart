@@ -1,0 +1,1 @@
+const FONT_SIZE_CAPTION = 12.0;

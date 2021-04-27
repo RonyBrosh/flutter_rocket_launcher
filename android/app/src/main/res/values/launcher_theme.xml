@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="rocketWing" format="reference" />
+    <attr name="rocketBody" format="reference" />
+    <attr name="rocketEngine" format="reference" />
+    <attr name="rocketWindow" format="reference" />
+    <attr name="rocketFlamePrimary" format="reference" />
+    <attr name="rocketFlamePrimaryClip" format="reference" />
+    <attr name="rocketFlameAccent" format="reference" />
+    <attr name="rocketFlameAccentClip" format="reference" />
+    <attr name="rocketBackgroundTop" format="reference" />
+    <attr name="rocketBackgroundBottom" format="reference" />
+</resources>

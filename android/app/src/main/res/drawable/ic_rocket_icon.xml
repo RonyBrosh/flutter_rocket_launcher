@@ -1,0 +1,147 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="200"
+    android:viewportHeight="200">
+
+    <group
+        android:name="rocket"
+        android:pivotX="100"
+        android:pivotY="100"
+        android:rotation="45"
+        android:scaleX="1"
+        android:scaleY="1"
+        android:translateX="10"
+        android:translateY="-10">
+        <group android:name="body_left">
+            <path
+                android:name="wing"
+                android:fillColor="#8516ff"
+                android:pathData="
+                M80,160
+                C70,160 60,170 60,170
+                M60,170
+                C50,150 70,130 75,120
+                L80,160"
+                android:strokeWidth="3"
+                android:strokeLineCap="round"
+                android:strokeLineJoin="round" />
+
+            <path
+                android:name="body"
+                android:fillColor="#ff6ad4"
+                android:pathData="
+                M94,165 80,160
+                C80,160 60,50 100,25
+                L100 165"
+                android:strokeWidth="3"
+                android:strokeColor="#ff6ad4"
+                android:strokeLineCap="round"
+                android:strokeLineJoin="round" />
+        </group>
+        <group
+            android:name="body_right"
+            android:pivotX="100"
+            android:pivotY="100"
+            android:scaleX="-1">
+            <path
+                android:name="wing"
+                android:fillColor="#8516ff"
+                android:pathData="
+                M80,160
+                C70,160 60,170 60,170
+                M60,170
+                C50,150 70,130 75,120
+                L80,160"
+                android:strokeWidth="3"
+                android:strokeLineCap="round"
+                android:strokeLineJoin="round" />
+            <path
+                android:name="body"
+                android:fillColor="#ff6ad4"
+                android:pathData="
+                M94,165 80,160
+                C80,160 60,50 100,25
+                L100 165"
+                android:strokeWidth="3"
+                android:strokeColor="#ff6ad4"
+                android:strokeLineCap="round"
+                android:strokeLineJoin="round" />
+        </group>
+
+
+        <path
+            android:name="engine"
+            android:fillColor="#B388FF"
+            android:pathData="
+            M94,170 94,145
+            C94,135 106,135 106,145
+            L106,170
+            C106,180 94,180,94,170"
+            android:strokeWidth="3"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round" />
+        <path
+            android:name="window"
+            android:fillColor="#B388FF"
+            android:pathData="
+            M90,70
+            C90,55 110,55 110,70
+            M90,70
+            C90,85 110,85 110,70"
+            android:strokeWidth="3"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round" />
+        <group android:name="flames">
+            <path
+                android:name="left_flame"
+                android:pathData="M80,175 80,200"
+                android:strokeWidth="4"
+                android:strokeColor="#ffabe7"
+                android:strokeLineCap="round"
+                android:strokeLineJoin="round" />
+
+            <path
+                android:name="right_flame"
+                android:pathData="M120,175 120,200"
+                android:strokeWidth="4"
+                android:strokeColor="#ffabe7"
+                android:strokeLineCap="round"
+                android:strokeLineJoin="round" />
+
+            <path
+                android:name="center_flame"
+                android:pathData="M100,190 100,220"
+                android:strokeWidth="5"
+                android:strokeColor="#B388FF"
+                android:strokeLineCap="round"
+                android:strokeLineJoin="round" />
+        </group>
+
+        <group android:name="flames_clip">
+            <path
+                android:name="left_flame"
+                android:pathData="M80,185 80,175"
+                android:strokeWidth="4"
+                android:strokeColor="#ff6ad4"
+                android:strokeLineCap="round"
+                android:strokeLineJoin="round" />
+
+            <path
+                android:name="right_flame"
+                android:pathData="M120,185 120,175"
+                android:strokeWidth="4"
+                android:strokeColor="#ff6ad4"
+                android:strokeLineCap="round"
+                android:strokeLineJoin="round" />
+
+            <path
+                android:name="center_flame"
+                android:pathData="M100,190 100,210"
+                android:strokeWidth="5"
+                android:strokeColor="#8516ff"
+                android:strokeLineCap="round"
+                android:strokeLineJoin="round" />
+        </group>
+    </group>
+</vector>

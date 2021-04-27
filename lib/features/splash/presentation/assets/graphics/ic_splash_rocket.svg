@@ -1,0 +1,111 @@
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 200 200"
+    id="vector">
+    <g
+        id="rocket"
+        transform="translate(10 -10) rotate(45 100 100)">
+        <g id="body_left">
+            <path
+                id="wing"
+                d="M 80 160 C 70 160 60 170 60 170 M 60 170 C 50 150 70 130 75 120 L 80 160"
+                fill="#8516ff"
+                stroke-width="3"
+                stroke-linecap="round"
+                stroke-linejoin="round"/>
+            <path
+                id="body"
+                d="M 94 165 L 80 160 C 80 160 60 50 100 25 L 100 165"
+                fill="#ff6ad4"
+                stroke="#ff6ad4"
+                stroke-width="3"
+                stroke-linecap="round"
+                stroke-linejoin="round"/>
+        </g>
+        <g
+            id="body_right"
+            transform="translate(100 100) scale(-1 1) translate(-100 -100)">
+            <path
+                id="wing_1"
+                d="M 80 160 C 70 160 60 170 60 170 M 60 170 C 50 150 70 130 75 120 L 80 160"
+                fill="#8516ff"
+                stroke-width="3"
+                stroke-linecap="round"
+                stroke-linejoin="round"/>
+            <path
+                id="body_1"
+                d="M 94 165 L 80 160 C 80 160 60 50 100 25 L 100 165"
+                fill="#ff6ad4"
+                stroke="#ff6ad4"
+                stroke-width="3"
+                stroke-linecap="round"
+                stroke-linejoin="round"/>
+        </g>
+        <path
+            id="engine"
+            d="M 94 170 L 94 145 C 94 135 106 135 106 145 L 106 170 C 106 180 94 180 94 170"
+            fill="#b388ff"
+            stroke-width="3"
+            stroke-linecap="round"
+            stroke-linejoin="round"/>
+        <path
+            id="window"
+            d="M 90 70 C 90 55 110 55 110 70 M 90 70 C 90 85 110 85 110 70"
+            fill="#b388ff"
+            stroke-width="3"
+            stroke-linecap="round"
+            stroke-linejoin="round"/>
+        <g id="flames">
+            <path
+                id="left_flame"
+                d="M 80 175 L 80 200"
+                fill="none"
+                stroke="#ffabe7"
+                stroke-width="4"
+                stroke-linecap="round"
+                stroke-linejoin="round"/>
+            <path
+                id="right_flame"
+                d="M 120 175 L 120 200"
+                fill="none"
+                stroke="#ffabe7"
+                stroke-width="4"
+                stroke-linecap="round"
+                stroke-linejoin="round"/>
+            <path
+                id="center_flame"
+                d="M 100 190 L 100 220"
+                fill="none"
+                stroke="#b388ff"
+                stroke-width="5"
+                stroke-linecap="round"
+                stroke-linejoin="round"/>
+        </g>
+        <g id="flames_clip">
+            <path
+                id="left_flame_1"
+                d="M 80 185 L 80 175"
+                fill="none"
+                stroke="#ff6ad4"
+                stroke-width="4"
+                stroke-linecap="round"
+                stroke-linejoin="round"/>
+            <path
+                id="right_flame_1"
+                d="M 120 185 L 120 175"
+                fill="none"
+                stroke="#ff6ad4"
+                stroke-width="4"
+                stroke-linecap="round"
+                stroke-linejoin="round"/>
+            <path
+                id="center_flame_1"
+                d="M 100 190 L 100 210"
+                fill="none"
+                stroke="#8516ff"
+                stroke-width="5"
+                stroke-linecap="round"
+                stroke-linejoin="round"/>
+        </g>
+    </g>
+</svg>

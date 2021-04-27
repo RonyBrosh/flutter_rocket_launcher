@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#202020</color>
+    <color name="grey_dark">#4C4B4B</color>
+
+    <color name="blue">#42A5F5</color>
+    <color name="blue_dark">#2196F3</color>
+    <color name="purple">#B388FF</color>
+    <color name="purple_dark">#8516ff</color>
+    <color name="pink">#ffabe7</color>
+    <color name="pink_dark">#ff6ad4</color>
+
+</resources>

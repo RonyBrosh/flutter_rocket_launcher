@@ -1,0 +1,36 @@
+name: flutter_rocket_launcher
+description: A new Flutter application.
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  http: ^0.13.1
+  shared_preferences: ^2.0.5
+  flutter_svg: ^0.21.0+1
+  cupertino_icons: ^1.0.2
+  url_launcher: ^5.7.10
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  mockito: ^5.0.4
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - lib/features/splash/presentation/assets/graphics/
+
+  fonts:
+    - family: RocketLauncher
+      fonts:
+        - asset: lib/core/presentation/fonts/space_quest.otf
+
