@@ -7,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await precachePicture(ExactAssetPicture(SvgPicture.svgStringDecoder, SplashAssets.SPLASH_ROCKET), null);
+
   runApp(RocketLauncherApp());
 }
 

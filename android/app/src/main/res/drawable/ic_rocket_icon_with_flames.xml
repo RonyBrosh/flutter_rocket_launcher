@@ -117,5 +117,31 @@
                 android:strokeLineCap="round"
                 android:strokeLineJoin="round" />
         </group>
+
+        <group android:name="flames_clip">
+            <path
+                android:name="left_flame"
+                android:pathData="M80,185 80,175"
+                android:strokeWidth="4"
+                android:strokeColor="#ff6ad4"
+                android:strokeLineCap="round"
+                android:strokeLineJoin="round" />
+
+            <path
+                android:name="right_flame"
+                android:pathData="M120,185 120,175"
+                android:strokeWidth="4"
+                android:strokeColor="#ff6ad4"
+                android:strokeLineCap="round"
+                android:strokeLineJoin="round" />
+
+            <path
+                android:name="center_flame"
+                android:pathData="M100,190 100,210"
+                android:strokeWidth="5"
+                android:strokeColor="#8516ff"
+                android:strokeLineCap="round"
+                android:strokeLineJoin="round" />
+        </group>
     </group>
 </vector>

@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_rocket_launcher/features/splash/presentation/assets/splash_resources.dart';
+import 'package:flutter_rocket_launcher/features/splash/presentation/splash_screen/model/splash_title_animation_state.dart';
 
 class SplashTitleWidget extends StatefulWidget {
+  final ValueNotifier<SplashTitleAnimationState> _splashTitleAnimationState;
+  final void Function() _onTitleEnterAnimationEnd;
+
+  SplashTitleWidget(this._splashTitleAnimationState, this._onTitleEnterAnimationEnd);
+
   @override
   State<StatefulWidget> createState() {
     return _SplashTitleWidgetState();
@@ -11,6 +17,7 @@ class SplashTitleWidget extends StatefulWidget {
 
 class _SplashTitleWidgetState extends State<SplashTitleWidget> with TickerProviderStateMixin {
   final int _animationDuration = 400;
+
   AnimationController _topTitleAnimationController;
   AnimationController _bottomTitleAnimationController;
   Animation _topTitleAnimation;
@@ -21,9 +28,15 @@ class _SplashTitleWidgetState extends State<SplashTitleWidget> with TickerProvid
     super.initState();
     _initTopTitleAnimation();
     _initBottomTitleAnimation();
-    Future.delayed(Duration(seconds: 1), () {
-      _topTitleAnimationController.forward();
-    });
+    widget._splashTitleAnimationState.addListener(_onSplashTitleAnimationStateChanged);
+  }
+
+  @override
+  void dispose() {
+    _topTitleAnimationController.dispose();
+    _bottomTitleAnimationController.dispose();
+    widget._splashTitleAnimationState.removeListener(_onSplashTitleAnimationStateChanged);
+    super.dispose();
   }
 
   @override
@@ -69,13 +82,6 @@ class _SplashTitleWidgetState extends State<SplashTitleWidget> with TickerProvid
     );
   }
 
-  @override
-  void dispose() {
-    _topTitleAnimationController.dispose();
-    _bottomTitleAnimationController.dispose();
-    super.dispose();
-  }
-
   void _initTopTitleAnimation() {
     _topTitleAnimationController = AnimationController(vsync: this, duration: Duration(milliseconds: _animationDuration));
     _topTitleAnimation = Tween<double>(
@@ -89,8 +95,6 @@ class _SplashTitleWidgetState extends State<SplashTitleWidget> with TickerProvid
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
           _bottomTitleAnimationController.forward();
-        } else if (status == AnimationStatus.dismissed) {
-          _topTitleAnimationController.forward();
         }
       });
   }
@@ -107,15 +111,22 @@ class _SplashTitleWidgetState extends State<SplashTitleWidget> with TickerProvid
     ))
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
-          Future.delayed(Duration(seconds: 3), () {
-            _animateExit();
-          });
+          widget._onTitleEnterAnimationEnd();
         }
       });
   }
 
-  void _animateExit() {
-    _bottomTitleAnimationController.reverse();
-    _topTitleAnimationController.reverse();
+  void _onSplashTitleAnimationStateChanged() {
+    switch (widget._splashTitleAnimationState.value) {
+      case SplashTitleAnimationState.IDLE:
+        break;
+      case SplashTitleAnimationState.ENTER:
+        _topTitleAnimationController.forward();
+        break;
+      case SplashTitleAnimationState.EXIT:
+        _bottomTitleAnimationController.reverse();
+        _topTitleAnimationController.reverse();
+        break;
+    }
   }
 }

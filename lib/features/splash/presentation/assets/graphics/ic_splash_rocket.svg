@@ -81,31 +81,5 @@
                 stroke-linecap="round"
                 stroke-linejoin="round"/>
         </g>
-        <g id="flames_clip">
-            <path
-                id="left_flame_1"
-                d="M 80 185 L 80 175"
-                fill="none"
-                stroke="#ff6ad4"
-                stroke-width="4"
-                stroke-linecap="round"
-                stroke-linejoin="round"/>
-            <path
-                id="right_flame_1"
-                d="M 120 185 L 120 175"
-                fill="none"
-                stroke="#ff6ad4"
-                stroke-width="4"
-                stroke-linecap="round"
-                stroke-linejoin="round"/>
-            <path
-                id="center_flame_1"
-                d="M 100 190 L 100 210"
-                fill="none"
-                stroke="#8516ff"
-                stroke-width="5"
-                stroke-linecap="round"
-                stroke-linejoin="round"/>
-        </g>
     </g>
 </svg>
