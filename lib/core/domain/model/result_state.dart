@@ -6,6 +6,14 @@ abstract class ResultState<T> {
   factory ResultState.success(T data) => Success._(data);
 
   factory ResultState.failure(ErrorType errorType) => Failure._(errorType);
+
+  void fold({Function(T) success, Function(ErrorType) failure}) {
+    if (this is Success) {
+      success((this as Success).data);
+    } else {
+      failure((this as Failure).errorType);
+    }
+  }
 }
 
 class Success<T> extends ResultState<T> {
@@ -20,7 +28,6 @@ class Success<T> extends ResultState<T> {
 
   @override
   int get hashCode => data.hashCode;
-
 }
 
 class Failure<T> extends ResultState<T> {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rocket_launcher/core/presentation/style/text_style.dart';
+import 'package:flutter_rocket_launcher/features/splash/di/splash_module.dart';
 import 'package:flutter_rocket_launcher/features/splash/presentation/assets/splash_assets.dart';
 import 'package:flutter_rocket_launcher/features/splash/presentation/splash_screen/view/splash_screen.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -25,7 +26,7 @@ class RocketLauncherApp extends StatelessWidget {
         primaryColorDark: Colors.blue[700],
         accentColor: Colors.deepPurpleAccent[100],
       ),
-      home: SplashScreen(),
+      home: SplashScreen(SplashModule.provideSplashScreenPresenter()),
     );
   }
 }

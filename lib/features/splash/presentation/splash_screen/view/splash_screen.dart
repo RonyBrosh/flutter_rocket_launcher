@@ -3,11 +3,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_rocket_launcher/core/presentation/widgets/text/text_link.dart';
 import 'package:flutter_rocket_launcher/features/splash/presentation/assets/splash_resources.dart';
 import 'package:flutter_rocket_launcher/features/splash/presentation/splash_screen/presenter/splash_screen_presenter.dart';
-import 'package:flutter_rocket_launcher/features/splash/presentation/splash_screen/presenter/splash_screen_presenter_impl.dart';
 import 'package:flutter_rocket_launcher/features/splash/presentation/splash_screen/widgets/splash_rocket_animation.dart';
 import 'package:flutter_rocket_launcher/features/splash/presentation/splash_screen/widgets/splash_title_widget.dart';
 
 class SplashScreen extends StatefulWidget {
+  final SplashScreenPresenter _splashScreenPresenter;
+
+  SplashScreen(this._splashScreenPresenter);
+
   @override
   State<StatefulWidget> createState() {
     SystemChrome.setEnabledSystemUIOverlays([]);
@@ -16,12 +19,10 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  final SplashScreenPresenter _splashScreenPresenter = SplashScreenPresenterImpl();
-
   @override
   void initState() {
     super.initState();
-    _splashScreenPresenter.onScreenLoaded();
+    widget._splashScreenPresenter.onScreenLoaded();
   }
 
   @override
@@ -47,8 +48,8 @@ class _SplashScreenState extends State<SplashScreen> {
               ),
               Expanded(child: SplashRocketAnimation()),
               Expanded(
-                child: SplashTitleWidget(_splashScreenPresenter.splashTitleAnimationState, () {
-                  _splashScreenPresenter.onTitleEnterAnimationEnd();
+                child: SplashTitleWidget(widget._splashScreenPresenter.splashTitleAnimationState, () {
+                  widget._splashScreenPresenter.onTitleEnterAnimationEnd();
                 }),
               ),
             ],
@@ -56,7 +57,7 @@ class _SplashScreenState extends State<SplashScreen> {
           Container(
             alignment: Alignment.bottomCenter,
             child: TextLink(SplashResources.from(context).strings.splashRepositoryLinkText, () {
-              _splashScreenPresenter.onGithubLinkClicked();
+              widget._splashScreenPresenter.onGithubLinkClicked();
             }),
           )
         ],
