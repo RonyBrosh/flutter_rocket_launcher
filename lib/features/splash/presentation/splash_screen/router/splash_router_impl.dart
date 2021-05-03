@@ -1,7 +1,13 @@
+import 'package:flutter/widgets.dart';
 import 'package:flutter_rocket_launcher/features/splash/presentation/splash_screen/router/splash_router.dart';
+import 'package:flutter_rocket_launcher/routes/routes.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SplashRouterImpl implements SplashRouter {
+  final NavigatorState _navigatorState;
+
+  SplashRouterImpl(this._navigatorState);
+
   @override
   void goToGithub() async {
     const url = "https://github.com/RonyBrosh/FlutterRocketLauncher";
@@ -17,6 +23,6 @@ class SplashRouterImpl implements SplashRouter {
 
   @override
   void goToWelcomeMessage() {
-    // TODO: implement goToWelcomeMessage
+    _navigatorState.pushNamed(Routes.WELCOME_SCREEN);
   }
 }
