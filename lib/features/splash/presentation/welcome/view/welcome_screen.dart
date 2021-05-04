@@ -4,13 +4,11 @@ import 'package:flutter/widgets.dart';
 class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Theme.of(context).backgroundColor,
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        children: [],
+    return Scaffold(
+      appBar: AppBar(),
+      backgroundColor: Theme.of(context).backgroundColor,
+      body: Center(
+        child: Text('Page 2'),
       ),
     );
   }
