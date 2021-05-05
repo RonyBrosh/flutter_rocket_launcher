@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_rocket_launcher/core/presentation/transitions/transition_vertical_slide.dart';
-import 'package:flutter_rocket_launcher/core/presentation/widgets/page/CustomPageRouteBuilder.dart';
 import 'package:flutter_rocket_launcher/features/splash/di/splash_module.dart';
 import 'package:flutter_rocket_launcher/features/splash/presentation/splash_screen/view/splash_screen.dart';
 import 'package:flutter_rocket_launcher/features/splash/presentation/welcome/view/welcome_screen.dart';
@@ -23,7 +22,7 @@ class SplashRoutes extends FeatureRoutes {
       case SPLASH_SCREEN:
         return MaterialPageRoute(builder: (_) => SplashScreen(SplashModule.provideSplashScreenPresenter()));
       case WELCOME_SCREEN:
-        return CustomPageRouteBuilder(
+        return PageRouteBuilder(
             pageBuilder: (context, animation, secondaryAnimation) => WelcomeScreen(),
             transitionsBuilder: (context, animation, secondaryAnimation, child) => ScreenTransition.verticalSlideTransition(animation, child));
 
