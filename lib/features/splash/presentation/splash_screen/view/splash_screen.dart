@@ -56,7 +56,7 @@ class _SplashScreenState extends State<SplashScreen> {
           ),
           Container(
             alignment: Alignment.bottomCenter,
-            child: TextLink(SplashResources.from(context).strings.splashRepositoryLinkText, () {
+            child: TextLink(SplashResources.from(context).strings.githubLinkText, () {
               widget._splashScreenPresenter.onGithubLinkClicked();
             }),
           )
