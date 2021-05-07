@@ -17,7 +17,7 @@ class TextBulletPoint extends StatelessWidget {
             padding: const EdgeInsets.all(SPACE_TINY),
             child: CircleAvatar(
               radius: 4.0,
-              backgroundColor: Theme.of(context).primaryColor,
+              backgroundColor: Theme.of(context).textTheme.subtitle1.color,
             ),
           ),
           Flexible(

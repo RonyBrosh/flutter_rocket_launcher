@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rocket_launcher/core/presentation/dimens/font_size.dart';
 import 'package:flutter_rocket_launcher/core/presentation/dimens/space.dart';
 
 class TextLink extends StatefulWidget {
   final String _text;
+  final bool _isDark;
   final void Function() _onUrlClicked;
 
-  TextLink(this._text, this._onUrlClicked);
+  TextLink(this._text, this._onUrlClicked, {bool isDark = false}) : _isDark = isDark;
 
   @override
   State<StatefulWidget> createState() {
@@ -37,10 +37,7 @@ class _TextLinkState extends State<TextLink> {
       child: Padding(
         padding: const EdgeInsets.all(SPACE_LARGE),
         child: DefaultTextStyle(
-          style: TextStyle(
-            color: _getTextColour(),
-            fontSize: FONT_SIZE_CAPTION,
-          ),
+          style: Theme.of(context).textTheme.caption.apply(color: _getTextColour(context)),
           child: Text(widget._text),
         ),
       ),
@@ -53,11 +50,11 @@ class _TextLinkState extends State<TextLink> {
     });
   }
 
-  Color _getTextColour() {
+  Color _getTextColour(BuildContext context) {
     if (_isPressed) {
-      return Colors.white70;
+      return widget._isDark ? Theme.of(context).textTheme.caption.color.withAlpha(70) : Colors.white70;
     } else {
-      return Colors.white;
+      return widget._isDark ? Theme.of(context).textTheme.caption.color : Colors.white;
     }
   }
 }

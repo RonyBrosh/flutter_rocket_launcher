@@ -25,7 +25,7 @@ class SplashStringsEnglish implements SplashStrings {
 
   @override
   String get welcomeShowcaseParagraph =>
-      "Get real rocket-launching information from open source REST API.\n\nClicking a rocket item from the list will open a screen with its additional details and images.\nBoth screens can be refreshed by \"Pull to Refresh\" gesture.\n\nYou can check out this app\'s full source code in my Github account (click the link at the bottom of this screen).";
+      "Get real rocket-launching information from open source REST API.\nClicking a rocket item from the list will open a screen with its additional details and images.\nBoth screens can be refreshed by \"Pull to Refresh\" gesture.\n\nYou can check out this app\'s full source code in my Github account (click the link at the bottom of this screen).";
 
   @override
   String get welcomeIncludingTitle => "Including";
