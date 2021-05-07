@@ -22,9 +22,9 @@ class SplashSharedPreferences implements SplashCache {
   }
 
   @override
-  Future<ResultState<bool>> disableWelcomeMessage() async {
+  Future<ResultState<bool>> setIsWelcomeMessageEnabled(bool isEnabled) async {
     try {
-      final bool result = await _sharedPreferencesWrapper.setBool(_isWelcomeMessageEnabledKey, false);
+      final bool result = await _sharedPreferencesWrapper.setBool(_isWelcomeMessageEnabledKey, isEnabled);
       return Future.value(ResultState.success(result));
     } catch (exception) {
       return Future.value(ResultState.failure(_errorMapper(exception)));

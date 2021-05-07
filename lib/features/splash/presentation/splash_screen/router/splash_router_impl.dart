@@ -19,11 +19,11 @@ class SplashRouterImpl implements SplashRouter {
 
   @override
   void goToRocketList() {
-    // TODO: implement goToRocketList
+    _navigatorState.pushReplacementNamed(SplashRoutes.ROCKETS_SCREEN);
   }
 
   @override
-  void goToWelcomeMessage() {
-    _navigatorState.pushNamed(SplashRoutes.WELCOME_SCREEN);
+  Future goToWelcomeMessage() {
+    return _navigatorState.pushNamed(SplashRoutes.WELCOME_SCREEN);
   }
 }

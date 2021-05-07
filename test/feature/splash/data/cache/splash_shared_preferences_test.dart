@@ -36,22 +36,24 @@ void main() {
     expect((result as Failure).errorType, errorType);
   });
 
-  test('disableWelcomeMessage SHOULD return result state success WHEN shared preferences wrapper succeeds', () async {
+  test('setIsWelcomeMessageEnabled SHOULD return result state success WHEN shared preferences wrapper succeeds', () async {
+    final isEnabled = true;
     final bool expected = true;
-    when(sharedPreferencesWrapperMock.setBool(key, false)).thenAnswer((realInvocation) => Future.value(expected));
+    when(sharedPreferencesWrapperMock.setBool(key, isEnabled)).thenAnswer((realInvocation) => Future.value(expected));
 
-    final ResultState<bool> result = await sut.disableWelcomeMessage();
+    final ResultState<bool> result = await sut.setIsWelcomeMessageEnabled(isEnabled);
 
     expect((result as Success).data, expected);
   });
 
-  test('disableWelcomeMessage SHOULD return result state failure WHEN shared preferences wrapper fails', () async {
+  test('setIsWelcomeMessageEnabled SHOULD return result state failure WHEN shared preferences wrapper fails', () async {
+    final isEnabled = true;
     final Exception error = Exception();
     final ErrorType errorType = ErrorType.unknown();
-    when(sharedPreferencesWrapperMock.setBool(key, false)).thenThrow(error);
+    when(sharedPreferencesWrapperMock.setBool(key, isEnabled)).thenThrow(error);
     when(errorMapperMock(error)).thenAnswer((realInvocation) => errorType);
 
-    final ResultState<bool> result = await sut.disableWelcomeMessage();
+    final ResultState<bool> result = await sut.setIsWelcomeMessageEnabled(isEnabled);
 
     expect((result as Failure).errorType, errorType);
   });

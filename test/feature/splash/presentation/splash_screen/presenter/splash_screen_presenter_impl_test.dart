@@ -37,11 +37,13 @@ void main() {
     final ValueNotifier valueNotifier = sut.splashTitleAnimationState;
     valueNotifier.value = SplashTitleAnimationState.IDLE;
     when(isWelcomeMessageEnabledUseCaseMock()).thenAnswer((realInvocation) => Future.value(ResultState.failure(ErrorType.unknown())));
+    when(splashRouterMock.goToWelcomeMessage()).thenAnswer((realInvocation) => Future.value());
 
     sut.onTitleEnterAnimationEnd();
 
     await widgetTester.pump(Duration(seconds: 3));
     verify(splashRouterMock.goToWelcomeMessage());
+    await widgetTester.pump(Duration(seconds: 1));
   });
 
   testWidgets('onTitleEnterAnimationEnd SHOULD emit SplashTitleAnimationState.EXIT WHEN IsWelcomeMessageEnabledUseCase return false', (WidgetTester widgetTester) async {
@@ -64,5 +66,6 @@ void main() {
 
     await widgetTester.pump(Duration(seconds: 3));
     verify(splashRouterMock.goToWelcomeMessage());
+    await widgetTester.pump(Duration(seconds: 1));
   });
 }

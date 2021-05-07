@@ -34,14 +34,27 @@ class SplashScreenPresenterImpl implements SplashScreenPresenter {
       _isWelcomeMessageEnabledUseCase().then((resultState) => {
             resultState.fold(success: (isWelcomeMessageEnabled) {
               if (isWelcomeMessageEnabled) {
-                _splashRouter.goToWelcomeMessage();
+                _goToWelcomeMessage();
               } else {
                 splashTitleAnimationState.value = SplashTitleAnimationState.EXIT;
               }
             }, failure: (errorType) {
-              _splashRouter.goToWelcomeMessage();
+              _goToWelcomeMessage();
             })
           });
+    });
+  }
+
+  @override
+  void onTitleExitAnimationEnd() {
+    _splashRouter.goToRocketList();
+  }
+
+  void _goToWelcomeMessage() {
+    _splashRouter.goToWelcomeMessage().then((value) {
+      Future.delayed(Duration(seconds: 1), () {
+        splashTitleAnimationState.value = SplashTitleAnimationState.EXIT;
+      });
     });
   }
 }

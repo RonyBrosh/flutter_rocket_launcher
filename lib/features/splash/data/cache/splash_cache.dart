@@ -5,5 +5,5 @@ abstract class SplashCache {
 
   Future<ResultState<bool>> isWelcomeMessageEnabled();
 
-  Future<ResultState<bool>> disableWelcomeMessage();
+  Future<ResultState<bool>> setIsWelcomeMessageEnabled(bool isEnabled);
 }

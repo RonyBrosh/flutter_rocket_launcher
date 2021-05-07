@@ -12,7 +12,7 @@ class SplashRepositoryImpl implements SplashRepository {
   }
 
   @override
-  Future<ResultState<bool>> disableWelcomeMessage() {
-    return _splashCache.disableWelcomeMessage();
+  Future<ResultState<bool>> setIsWelcomeMessageEnabled(bool isEnabled) {
+    return _splashCache.setIsWelcomeMessageEnabled(isEnabled);
   }
 }

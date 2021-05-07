@@ -10,5 +10,7 @@ abstract class SplashScreenPresenter {
 
   void onTitleEnterAnimationEnd();
 
+  void onTitleExitAnimationEnd();
+
   void onGithubLinkClicked();
 }

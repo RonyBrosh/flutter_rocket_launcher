@@ -3,7 +3,7 @@ abstract class SplashRouter {
 
   void goToGithub();
 
-  void goToWelcomeMessage();
+  Future goToWelcomeMessage();
 
   void goToRocketList();
 }

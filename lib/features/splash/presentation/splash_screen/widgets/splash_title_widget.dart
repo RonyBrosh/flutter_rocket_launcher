@@ -6,8 +6,15 @@ import 'package:flutter_rocket_launcher/features/splash/presentation/splash_scre
 class SplashTitleWidget extends StatefulWidget {
   final ValueNotifier<SplashTitleAnimationState> _splashTitleAnimationState;
   final void Function() _onTitleEnterAnimationEnd;
+  final void Function() _onTitleExitAnimationEnd;
 
-  SplashTitleWidget(this._splashTitleAnimationState, this._onTitleEnterAnimationEnd);
+  SplashTitleWidget({
+    @required ValueNotifier<SplashTitleAnimationState> splashTitleAnimationState,
+    @required Function() onTitleEnterAnimationEnd,
+    @required Function() onTitleExitAnimationEnd,
+  })  : this._splashTitleAnimationState = splashTitleAnimationState,
+        this._onTitleEnterAnimationEnd = onTitleEnterAnimationEnd,
+        this._onTitleExitAnimationEnd = onTitleExitAnimationEnd;
 
   @override
   State<StatefulWidget> createState() {
@@ -112,6 +119,8 @@ class _SplashTitleWidgetState extends State<SplashTitleWidget> with TickerProvid
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
           widget._onTitleEnterAnimationEnd();
+        } else if (status == AnimationStatus.dismissed) {
+          widget._onTitleExitAnimationEnd();
         }
       });
   }

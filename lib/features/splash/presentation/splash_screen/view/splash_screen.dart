@@ -48,9 +48,11 @@ class _SplashScreenState extends State<SplashScreen> {
               ),
               Expanded(child: SplashRocketAnimation()),
               Expanded(
-                child: SplashTitleWidget(widget._splashScreenPresenter.splashTitleAnimationState, () {
-                  widget._splashScreenPresenter.onTitleEnterAnimationEnd();
-                }),
+                child: SplashTitleWidget(
+                  splashTitleAnimationState: widget._splashScreenPresenter.splashTitleAnimationState,
+                  onTitleEnterAnimationEnd: widget._splashScreenPresenter.onTitleEnterAnimationEnd,
+                  onTitleExitAnimationEnd: widget._splashScreenPresenter.onTitleExitAnimationEnd,
+                ),
               ),
             ],
           ),

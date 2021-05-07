@@ -6,7 +6,26 @@ import 'package:flutter_rocket_launcher/core/presentation/widgets/text/text_capt
 import 'package:flutter_rocket_launcher/core/presentation/widgets/text/text_link.dart';
 import 'package:flutter_rocket_launcher/features/splash/presentation/assets/splash_resources.dart';
 
-class WelcomeActionsWidget extends StatelessWidget {
+class WelcomeActionsWidget extends StatefulWidget {
+  final void Function() _onUrlClicked;
+  final void Function() _onNextClicked;
+  final void Function(bool) _onToggleWelcomeMessageClicked;
+
+  WelcomeActionsWidget({
+    @required Function() onNextClicked,
+    @required Function() onUrlClicked,
+    @required Function(bool) onToggleWelcomeMessageClicked,
+  })  : _onNextClicked = onNextClicked,
+        _onUrlClicked = onUrlClicked,
+        _onToggleWelcomeMessageClicked = onToggleWelcomeMessageClicked;
+
+  @override
+  _WelcomeActionsWidgetState createState() => _WelcomeActionsWidgetState();
+}
+
+class _WelcomeActionsWidgetState extends State<WelcomeActionsWidget> {
+  bool _isWelcomeMessageEnabled = true;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -30,14 +49,19 @@ class WelcomeActionsWidget extends StatelessWidget {
                 children: [
                   Expanded(child: TextCaption(SplashResources.from(context).strings.welcomeEnableMessageToggleText)),
                   Switch(
-                    value: true,
-                    onChanged: (isSelected) {},
+                    value: _isWelcomeMessageEnabled,
+                    onChanged: (isSelected) {
+                      widget._onToggleWelcomeMessageClicked(isSelected);
+                      setState(() {
+                        _isWelcomeMessageEnabled = isSelected;
+                      });
+                    },
                   ),
                 ],
               ),
             ),
-            PrimaryActionButton(SplashResources.from(context).strings.welcomeNextButton, () {}),
-            TextLink(SplashResources.from(context).strings.githubLinkText, () {}, isDark: true),
+            PrimaryActionButton(SplashResources.from(context).strings.welcomeNextButton, widget._onNextClicked),
+            TextLink(SplashResources.from(context).strings.githubLinkText, widget._onUrlClicked, isDark: true),
           ],
         ),
       ),
