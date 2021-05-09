@@ -10,6 +10,6 @@ class GetRocketsUseCaseImpl implements GetRocketsUseCase {
 
   @override
   Future<ResultState<List<Rocket>>> call({bool isRefresh = false}) {
-    return _rocketsRepository.getRockets();
+    return _rocketsRepository.getRockets(isRefresh: isRefresh);
   }
 }

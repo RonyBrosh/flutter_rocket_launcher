@@ -10,7 +10,6 @@ import 'package:flutter_rocket_launcher/routes/feature_routes.dart';
 class SplashRoutes extends FeatureRoutes {
   static const String SPLASH_SCREEN = "/";
   static const String WELCOME_SCREEN = "welcome_screen";
-  static const String ROCKETS_SCREEN = "rockets_screen";
 
   @override
   List<String> get screens => [
@@ -29,7 +28,7 @@ class SplashRoutes extends FeatureRoutes {
             transitionsBuilder: (context, animation, secondaryAnimation, child) => ScreenTransition.verticalSlideTransition(animation, child));
 
       default:
-        throw Exception("Can't generate route for ${settings.name}");
+        return generateDefaultRoute(settings);
     }
   }
 }

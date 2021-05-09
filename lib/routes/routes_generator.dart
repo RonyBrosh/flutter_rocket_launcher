@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_rocket_launcher/routes/feature_routes.dart';
+import 'package:flutter_rocket_launcher/routes/features/rockets_routes.dart';
 import 'package:flutter_rocket_launcher/routes/features/splash_routes.dart';
 
 class RoutesGenerator {
@@ -8,6 +9,7 @@ class RoutesGenerator {
 
   List<FeatureRoutes> _featureRoutes = [
     SplashRoutes(),
+    RocketsRoutes(),
   ];
 
   RoutesGenerator._();

@@ -15,7 +15,7 @@ class RocketsHttpClient implements RocketsApi {
   @override
   Future<ResultState<List<Rocket>>> getRockets() async {
     try {
-      final String response = await _httpClient.get("v4/rockets");
+      final String response = await _httpClient.get("/v4/rockets");
       final List<Rocket> result = _rocketMapper(response);
       return Future.value(ResultState.success(result));
     } catch (exception) {

@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_rocket_launcher/features/splash/presentation/assets/strings/strings.dart';
 import 'package:flutter_rocket_launcher/features/splash/presentation/splash_screen/router/splash_router.dart';
+import 'package:flutter_rocket_launcher/routes/features/rockets_routes.dart';
 import 'package:flutter_rocket_launcher/routes/features/splash_routes.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -19,7 +20,7 @@ class SplashRouterImpl implements SplashRouter {
 
   @override
   void goToRocketList() {
-    _navigatorState.pushReplacementNamed(SplashRoutes.ROCKETS_SCREEN);
+    _navigatorState.pushReplacementNamed(RocketsRoutes.ROCKETS_SCREEN);
   }
 
   @override
