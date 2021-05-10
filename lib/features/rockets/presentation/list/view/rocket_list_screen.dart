@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_rocket_launcher/core/presentation/widgets/text/text_app_bar.dart';
 import 'package:flutter_rocket_launcher/features/rockets/presentation/assets/rockets_resources.dart';
 import 'package:flutter_rocket_launcher/features/rockets/presentation/list/presenter/rocket_list_presenter.dart';
@@ -11,7 +12,10 @@ class RocketListScreen extends StatefulWidget {
   RocketListScreen(this._rocketListPresenter);
 
   @override
-  _RocketListScreenState createState() => _RocketListScreenState();
+  State<RocketListScreen> createState() {
+    SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
+    return _RocketListScreenState();
+  }
 }
 
 class _RocketListScreenState extends State<RocketListScreen> {

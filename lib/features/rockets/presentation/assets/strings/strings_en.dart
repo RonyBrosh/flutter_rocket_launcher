@@ -5,6 +5,12 @@ class RocketsStringsEnglish implements RocketsStrings {
   @override
   String get listTitle => "Rocket Launcher";
 
+  @override
+  String get listItemEnginesCount => "Engines count: ";
+
+  @override
+  String get listItemActive => "Rocket is active";
+
 //endregion
 
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rocket_launcher/core/presentation/dimens/space.dart';
-import 'package:flutter_rocket_launcher/core/presentation/widgets/text/text_title.dart';
 import 'package:flutter_rocket_launcher/features/rockets/domain/model/rocket.dart';
 import 'package:flutter_rocket_launcher/features/rockets/presentation/list/model/rocket_list_state.dart';
+import 'package:flutter_rocket_launcher/features/rockets/presentation/list/widgets/rocket_list_item_widget.dart';
 
 class RocketListStateWidget extends StatefulWidget {
   final ValueNotifier _state;
@@ -67,18 +67,13 @@ class _RocketListStateWidgetState extends State<RocketListStateWidget> {
 
   Widget _createContentView() {
     return RefreshIndicator(
-      color: Theme.of(context).primaryColor,
       child: ListView.builder(
-        physics: const AlwaysScrollableScrollPhysics(),
-        itemCount: _rockets.length,
-        itemBuilder: (BuildContext context, int index) {
-          final Rocket rocket = _rockets[index];
-          return Card(
-            margin: EdgeInsets.symmetric(horizontal: SPACE_BASE, vertical: SPACE_SMALL),
-            child: TextTitle(rocket.name),
-          );
-        },
-      ),
+          physics: const AlwaysScrollableScrollPhysics(),
+          padding: EdgeInsets.symmetric(horizontal: SPACE_BASE, vertical: SPACE_SMALL),
+          itemCount: _rockets.length,
+          itemBuilder: (context, index) {
+            return RocketListItemWidget(_rockets[index]);
+          }),
       onRefresh: () async {
         widget._onRefreshRockets();
       },
