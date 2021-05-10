@@ -30,9 +30,12 @@ class _RocketListScreenState extends State<RocketListScreen> {
     return Scaffold(
       appBar: AppBar(
         title: TextAppBAr(RocketsResources.from(context).strings.listTitle),
-        actions: [FilterWidget((isActive) {})],
+        actions: [FilterWidget(widget._rocketListPresenter.toggleFilter)],
       ),
-      body: RocketListStateWidget(widget._rocketListPresenter.rocketListState, widget._rocketListPresenter.refreshRockets),
+      body: RocketListStateWidget(
+        widget._rocketListPresenter.rocketListState,
+        widget._rocketListPresenter.refreshRockets,
+      ),
     );
   }
 }

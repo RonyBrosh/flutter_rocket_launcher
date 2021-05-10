@@ -72,7 +72,9 @@ class _RocketListStateWidgetState extends State<RocketListStateWidget> {
           padding: EdgeInsets.symmetric(horizontal: SPACE_BASE, vertical: SPACE_SMALL),
           itemCount: _rockets.length,
           itemBuilder: (context, index) {
-            return RocketListItemWidget(_rockets[index]);
+            return RocketListItemWidget(_rockets[index], (rocket) {
+              print("Clicked on ${rocket.name}");
+            });
           }),
       onRefresh: () async {
         widget._onRefreshRockets();

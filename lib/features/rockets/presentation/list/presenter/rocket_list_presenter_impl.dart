@@ -8,6 +8,7 @@ class RocketListPresenterImpl implements RocketListPresenter {
   final ValueNotifier<RocketListState> _rocketListState = ValueNotifier(RocketListState.loading());
   final GetRocketsUseCase _getRocketsUseCase;
   final List<Rocket> _content = List.empty(growable: true);
+  bool _isFilterMode = false;
 
   RocketListPresenterImpl(this._getRocketsUseCase);
 
@@ -25,7 +26,7 @@ class RocketListPresenterImpl implements RocketListPresenter {
             refreshRockets();
           } else {
             _content.addAll(rockets);
-            _rocketListState.value = RocketListState.content(_content.toList());
+            _notifyContent();
           }
         },
         failure: (errorType) {
@@ -44,7 +45,7 @@ class RocketListPresenterImpl implements RocketListPresenter {
       resultState.fold(
         success: (rockets) {
           _content.addAll(rockets);
-          _rocketListState.value = RocketListState.content(_content.toList());
+          _notifyContent();
         },
         failure: (errorType) {
           _rocketListState.value = RocketListState.error(errorType);
@@ -55,12 +56,18 @@ class RocketListPresenterImpl implements RocketListPresenter {
 
   @override
   void toggleFilter(bool isFilterMode) {
+    _isFilterMode = isFilterMode;
+
     final RocketListState currentState = _rocketListState.value;
     if (currentState is Content == false) {
       return;
     }
 
-    if (isFilterMode) {
+    _notifyContent();
+  }
+
+  void _notifyContent() {
+    if (_isFilterMode) {
       final List<Rocket> filteredRockets = _content.where((rocket) => rocket.isActive).toList();
       _rocketListState.value = RocketListState.content(filteredRockets);
     } else {
