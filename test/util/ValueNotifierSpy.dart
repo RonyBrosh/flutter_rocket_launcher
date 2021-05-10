@@ -22,7 +22,11 @@ class ValueNotifierSpy {
     final List<dynamic> actualValues = _values.toList();
     expect(actualValues.length, expectedValues.length);
     for (int index = 0; index < _values.length; index++) {
-      expect(actualValues[index], expectedValues[index]);
+      expect(
+        actualValues[index],
+        expectedValues[index],
+        reason: "Assert Ordered failed for index $index:\nactualValues[index] = ${actualValues[index]}\nexpectedValues[index] = ${expectedValues[index]}",
+      );
     }
     _dispose();
   }

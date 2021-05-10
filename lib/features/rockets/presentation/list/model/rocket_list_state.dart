@@ -36,6 +36,11 @@ class Content extends RocketListState {
 
   @override
   int get hashCode => rockets.hashCode;
+
+  @override
+  String toString() {
+   return rockets.toString();
+  }
 }
 
 class Error extends RocketListState {

@@ -12,16 +12,20 @@ class RocketListPresenterImpl implements RocketListPresenter {
   RocketListPresenterImpl(this._getRocketsUseCase);
 
   @override
+  ValueNotifier<RocketListState> get rocketListState => _rocketListState;
+
+  @override
   void loadRockets() {
+    _content.clear();
     _rocketListState.value = RocketListState.loading();
     _getRocketsUseCase().then((resultState) {
       resultState.fold(
         success: (rockets) {
-          _updateContent(rockets);
-          if (_content.isEmpty) {
+          if (rockets.isEmpty) {
             refreshRockets();
           } else {
-            _rocketListState.value = RocketListState.content(_content);
+            _content.addAll(rockets);
+            _rocketListState.value = RocketListState.content(_content.toList());
           }
         },
         failure: (errorType) {
@@ -33,13 +37,14 @@ class RocketListPresenterImpl implements RocketListPresenter {
 
   @override
   void refreshRockets() {
-    _rocketListState.value = RocketListState.content(List.empty());
+    _content.clear();
+    _rocketListState.value = RocketListState.content(_content.toList());
     _rocketListState.value = RocketListState.loading();
     _getRocketsUseCase(isRefresh: true).then((resultState) {
       resultState.fold(
         success: (rockets) {
-          _updateContent(rockets);
-          _rocketListState.value = RocketListState.content(_content);
+          _content.addAll(rockets);
+          _rocketListState.value = RocketListState.content(_content.toList());
         },
         failure: (errorType) {
           _rocketListState.value = RocketListState.error(errorType);
@@ -47,9 +52,6 @@ class RocketListPresenterImpl implements RocketListPresenter {
       );
     });
   }
-
-  @override
-  ValueNotifier<RocketListState> get rocketListState => _rocketListState;
 
   @override
   void toggleFilter(bool isFilterMode) {
@@ -62,12 +64,7 @@ class RocketListPresenterImpl implements RocketListPresenter {
       final List<Rocket> filteredRockets = _content.where((rocket) => rocket.isActive).toList();
       _rocketListState.value = RocketListState.content(filteredRockets);
     } else {
-      _rocketListState.value = RocketListState.content(_content);
+      _rocketListState.value = RocketListState.content(_content.toList());
     }
-  }
-
-  void _updateContent(List<Rocket> rockets) {
-    _content.clear();
-    _content.addAll(rockets);
   }
 }

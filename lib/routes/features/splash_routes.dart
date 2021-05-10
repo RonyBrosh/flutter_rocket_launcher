@@ -24,8 +24,9 @@ class SplashRoutes extends FeatureRoutes {
         return MaterialPageRoute(builder: (_) => SplashScreen(SplashModule.provideSplashScreenPresenter()));
       case WELCOME_SCREEN:
         return PageRouteBuilder(
-            pageBuilder: (context, animation, secondaryAnimation) => WelcomeScreen(WelcomeModule.provideWelcomeScreenPresenter()),
-            transitionsBuilder: (context, animation, secondaryAnimation, child) => ScreenTransition.verticalSlideTransition(animation, child));
+          pageBuilder: (context, animation, secondaryAnimation) => WelcomeScreen(WelcomeModule.provideWelcomeScreenPresenter()),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) => ScreenTransition.verticalSlideTransition(animation, child),
+        );
 
       default:
         return generateDefaultRoute(settings);

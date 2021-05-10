@@ -14,7 +14,7 @@ class RocketMapperMock extends Mock implements Mapper<String, List<Rocket>> {}
 class ErrorMapperMock extends Mock implements Mapper<Exception, ErrorType> {}
 
 void main() {
-  final String getRocketRequestUrl = "v4/rockets";
+  final String getRocketRequestUrl = "/v4/rockets";
   final HttpClientMock httpClientMock = HttpClientMock();
   final RocketMapperMock rocketMapperMock = RocketMapperMock();
   final ErrorMapperMock errorMapperMock = ErrorMapperMock();
