@@ -3,14 +3,16 @@ import 'package:flutter_rocket_launcher/features/rockets/domain/model/rocket.dar
 import 'package:flutter_rocket_launcher/features/rockets/domain/use_case/get_rockets_use_case.dart';
 import 'package:flutter_rocket_launcher/features/rockets/presentation/list/model/rocket_list_state.dart';
 import 'package:flutter_rocket_launcher/features/rockets/presentation/list/presenter/rocket_list_presenter.dart';
+import 'package:flutter_rocket_launcher/features/rockets/presentation/list/router/rocket_list_router.dart';
 
 class RocketListPresenterImpl implements RocketListPresenter {
   final ValueNotifier<RocketListState> _rocketListState = ValueNotifier(RocketListState.loading());
   final GetRocketsUseCase _getRocketsUseCase;
+  final RocketListRouter _rocketListRouter;
   final List<Rocket> _content = List.empty(growable: true);
   bool _isFilterMode = false;
 
-  RocketListPresenterImpl(this._getRocketsUseCase);
+  RocketListPresenterImpl(this._getRocketsUseCase, this._rocketListRouter);
 
   @override
   ValueNotifier<RocketListState> get rocketListState => _rocketListState;
@@ -64,6 +66,11 @@ class RocketListPresenterImpl implements RocketListPresenter {
     }
 
     _notifyContent();
+  }
+
+  @override
+  void onRocketClicked(Rocket rocket) {
+    _rocketListRouter.goToRocketDetails(rocket);
   }
 
   void _notifyContent() {

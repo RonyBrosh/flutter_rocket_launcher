@@ -35,6 +35,7 @@ class _RocketListScreenState extends State<RocketListScreen> {
       body: RocketListStateWidget(
         widget._rocketListPresenter.rocketListState,
         widget._rocketListPresenter.refreshRockets,
+        widget._rocketListPresenter.onRocketClicked,
       ),
     );
   }

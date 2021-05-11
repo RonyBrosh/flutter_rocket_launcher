@@ -7,8 +7,9 @@ import 'package:flutter_rocket_launcher/features/rockets/presentation/list/widge
 class RocketListStateWidget extends StatefulWidget {
   final ValueNotifier _state;
   final Function() _onRefreshRockets;
+  final Function(Rocket) _onRocketClicked;
 
-  RocketListStateWidget(this._state, this._onRefreshRockets);
+  RocketListStateWidget(this._state, this._onRefreshRockets, this._onRocketClicked);
 
   @override
   State<StatefulWidget> createState() {
@@ -72,9 +73,7 @@ class _RocketListStateWidgetState extends State<RocketListStateWidget> {
           padding: EdgeInsets.symmetric(horizontal: SPACE_BASE, vertical: SPACE_SMALL),
           itemCount: _rockets.length,
           itemBuilder: (context, index) {
-            return RocketListItemWidget(_rockets[index], (rocket) {
-              print("Clicked on ${rocket.name}");
-            });
+            return RocketListItemWidget(_rockets[index], widget._onRocketClicked);
           }),
       onRefresh: () async {
         widget._onRefreshRockets();

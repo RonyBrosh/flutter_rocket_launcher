@@ -7,22 +7,26 @@ import 'package:flutter_rocket_launcher/features/rockets/data/repository/rockets
 import 'package:flutter_rocket_launcher/features/rockets/data/use_case/get_rockets_use_case_impl.dart';
 import 'package:flutter_rocket_launcher/features/rockets/presentation/list/presenter/rocket_list_presenter.dart';
 import 'package:flutter_rocket_launcher/features/rockets/presentation/list/presenter/rocket_list_presenter_impl.dart';
+import 'package:flutter_rocket_launcher/features/rockets/presentation/list/router/rocket_list_router_impl.dart';
 import 'package:http/http.dart';
 
 class RocketListModule {
   static RocketListPresenter provideRocketListPresenter() {
-    return RocketListPresenterImpl(GetRocketsUseCaseImpl(
-      RocketsRepositoryImpl(
-        RocketsHttpClient(
-          HttpClient(
-            "api.spacexdata.com",
-            Client(),
+    return RocketListPresenterImpl(
+      GetRocketsUseCaseImpl(
+        RocketsRepositoryImpl(
+          RocketsHttpClient(
+            HttpClient(
+              "api.spacexdata.com",
+              Client(),
+            ),
+            RocketJsonToDomainListMapper(),
+            ErrorMapper(),
           ),
-          RocketJsonToDomainListMapper(),
-          ErrorMapper(),
+          RocketsDatabaseImpl(),
         ),
-        RocketsDatabaseImpl(),
       ),
-    ));
+      RocketListRouterImpl(),
+    );
   }
 }
