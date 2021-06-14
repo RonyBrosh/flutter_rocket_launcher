@@ -4,6 +4,7 @@ import 'package:flutter_rocket_launcher/features/rockets/domain/model/rocket.dar
 import 'package:flutter_rocket_launcher/features/rockets/domain/use_case/get_rockets_use_case.dart';
 import 'package:flutter_rocket_launcher/features/rockets/presentation/list/model/rocket_list_state.dart';
 import 'package:flutter_rocket_launcher/features/rockets/presentation/list/presenter/rocket_list_presenter_impl.dart';
+import 'package:flutter_rocket_launcher/features/rockets/presentation/list/router/rocket_list_router.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
@@ -11,11 +12,15 @@ import '../../../../../util/ValueNotifierSpy.dart';
 
 class GetRocketsUseCaseMock extends Mock implements GetRocketsUseCase {}
 
+class RocketListRouterMock extends Mock implements RocketListRouter {}
+
 void main() {
   final GetRocketsUseCaseMock getRocketsUseCaseMock = GetRocketsUseCaseMock();
-  final RocketListPresenterImpl sut = RocketListPresenterImpl(getRocketsUseCaseMock);
+  final RocketListRouterMock rocketListRouterMock = RocketListRouterMock();
+  final RocketListPresenterImpl sut = RocketListPresenterImpl(getRocketsUseCaseMock, rocketListRouterMock);
 
   setUp(() {
+    sut.toggleFilter(false);
     sut.rocketListState.value = RocketListState.loading();
   });
 
@@ -147,5 +152,13 @@ void main() {
       RocketListState.content(filteredContent),
       RocketListState.content(content),
     ]);
+  });
+
+  test('onRocketClicked SHOULD navigate to rocket details WHEN clicked', () {
+    final Rocket rocket = Rocket.create();
+
+    sut.onRocketClicked(rocket);
+
+    verify(rocketListRouterMock.goToRocketDetails(rocket));
   });
 }
