@@ -1,3 +1,4 @@
+import 'package:fake_async/fake_async.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_rocket_launcher/core/domain/model/error_type.dart';
 import 'package:flutter_rocket_launcher/core/domain/model/result_state.dart';
@@ -23,49 +24,55 @@ void main() {
     verify(splashRouterMock.goToGithub());
   });
 
-  testWidgets('onScreenLoaded SHOULD emit SplashTitleAnimationState.ENTER WHEN called', (WidgetTester widgetTester) async {
+  test('onScreenLoaded SHOULD emit SplashTitleAnimationState.ENTER WHEN called', () {
     final ValueNotifier valueNotifier = sut.splashTitleAnimationState;
     valueNotifier.value = SplashTitleAnimationState.IDLE;
 
-    sut.onScreenLoaded();
+    fakeAsync((async) {
+      sut.onScreenLoaded();
 
-    await widgetTester.pump(Duration(seconds: 2));
-    expect(valueNotifier.value, SplashTitleAnimationState.ENTER);
+      async.flushTimers();
+      expect(valueNotifier.value, SplashTitleAnimationState.ENTER);
+    });
   });
 
-  testWidgets('onTitleEnterAnimationEnd SHOULD goToWelcomeMessage WHEN IsWelcomeMessageEnabledUseCase fails', (WidgetTester widgetTester) async {
+  test('onTitleEnterAnimationEnd SHOULD goToWelcomeMessage WHEN IsWelcomeMessageEnabledUseCase fails', () {
     final ValueNotifier valueNotifier = sut.splashTitleAnimationState;
     valueNotifier.value = SplashTitleAnimationState.IDLE;
     when(isWelcomeMessageEnabledUseCaseMock()).thenAnswer((realInvocation) => Future.value(ResultState.failure(ErrorType.unknown())));
     when(splashRouterMock.goToWelcomeMessage()).thenAnswer((realInvocation) => Future.value());
 
-    sut.onTitleEnterAnimationEnd();
+    fakeAsync((async) {
+      sut.onTitleEnterAnimationEnd();
 
-    await widgetTester.pump(Duration(seconds: 3));
-    verify(splashRouterMock.goToWelcomeMessage());
-    await widgetTester.pump(Duration(seconds: 1));
+      async.flushTimers();
+      verify(splashRouterMock.goToWelcomeMessage());
+    });
   });
 
-  testWidgets('onTitleEnterAnimationEnd SHOULD emit SplashTitleAnimationState.EXIT WHEN IsWelcomeMessageEnabledUseCase return false', (WidgetTester widgetTester) async {
+  test('onTitleEnterAnimationEnd SHOULD emit SplashTitleAnimationState.EXIT WHEN IsWelcomeMessageEnabledUseCase return false', () {
     final ValueNotifier valueNotifier = sut.splashTitleAnimationState;
     valueNotifier.value = SplashTitleAnimationState.IDLE;
     when(isWelcomeMessageEnabledUseCaseMock()).thenAnswer((realInvocation) => Future.value(ResultState.success(false)));
 
-    sut.onTitleEnterAnimationEnd();
+    fakeAsync((async) {
+      sut.onTitleEnterAnimationEnd();
 
-    await widgetTester.pump(Duration(seconds: 3));
-    expect(valueNotifier.value, SplashTitleAnimationState.EXIT);
+      async.flushTimers();
+      expect(valueNotifier.value, SplashTitleAnimationState.EXIT);
+    });
   });
 
-  testWidgets('onTitleEnterAnimationEnd SHOULD goToWelcomeMessage WHEN IsWelcomeMessageEnabledUseCase return true', (WidgetTester widgetTester) async {
+  test('onTitleEnterAnimationEnd SHOULD goToWelcomeMessage WHEN IsWelcomeMessageEnabledUseCase return true', () {
     final ValueNotifier valueNotifier = sut.splashTitleAnimationState;
     valueNotifier.value = SplashTitleAnimationState.IDLE;
     when(isWelcomeMessageEnabledUseCaseMock()).thenAnswer((realInvocation) => Future.value(ResultState.success(true)));
 
-    sut.onTitleEnterAnimationEnd();
+    fakeAsync((async) {
+      sut.onTitleEnterAnimationEnd();
 
-    await widgetTester.pump(Duration(seconds: 3));
-    verify(splashRouterMock.goToWelcomeMessage());
-    await widgetTester.pump(Duration(seconds: 1));
+      async.flushTimers();
+      verify(splashRouterMock.goToWelcomeMessage());
+    });
   });
 }

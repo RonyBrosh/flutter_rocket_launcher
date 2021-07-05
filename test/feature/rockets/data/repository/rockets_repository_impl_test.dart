@@ -1,8 +1,9 @@
+import 'package:fake_async/fake_async.dart';
 import 'package:flutter_rocket_launcher/core/domain/model/error_type.dart';
 import 'package:flutter_rocket_launcher/core/domain/model/result_state.dart';
-import 'package:flutter_rocket_launcher/features/rockets/data/database/rockets_database.dart';
 import 'package:flutter_rocket_launcher/features/rockets/data/network/api/rockets_api.dart';
 import 'package:flutter_rocket_launcher/features/rockets/data/repository/rockets_repository_impl.dart';
+import 'package:flutter_rocket_launcher/features/rockets/data/storage/database/rockets_database.dart';
 import 'package:flutter_rocket_launcher/features/rockets/domain/model/rocket.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
@@ -29,16 +30,18 @@ void main() {
     verifyZeroInteractions(rocketsApiMock);
   });
 
-  testWidgets('getRockets SHOULD call api AND save rockets database WHEN isRefresh is true and API succeeds', (WidgetTester widgetTester) async {
+  test('getRockets SHOULD call api AND save rockets database WHEN isRefresh is true and API succeeds', () {
     final List<Rocket> rockets = [Rocket.create(id: "1234")];
     when(rocketsApiMock.getRockets()).thenAnswer((realInvocation) => Future.value(ResultState.success(rockets)));
 
-    sut.getRockets(isRefresh: true);
+    fakeAsync((async) {
+      sut.getRockets(isRefresh: true);
 
-    await widgetTester.pump(Duration(seconds: 1));
-    verify(rocketsApiMock.getRockets());
-    verify(rocketsDatabaseMock.setRockets(rockets));
-    verifyNever(rocketsDatabaseMock.getRockets());
+      async.flushMicrotasks();
+      verify(rocketsApiMock.getRockets());
+      verify(rocketsDatabaseMock.setRockets(rockets));
+      verifyNever(rocketsDatabaseMock.getRockets());
+    });
   });
 
   test('getRockets SHOULD return result state success WHEN database succeeds', () async {

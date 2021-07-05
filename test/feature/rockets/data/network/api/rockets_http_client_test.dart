@@ -20,26 +20,28 @@ void main() {
   final ErrorMapperMock errorMapperMock = ErrorMapperMock();
   final RocketsHttpClient sut = RocketsHttpClient(httpClientMock, rocketMapperMock, errorMapperMock);
 
-  test('getRockets SHOULD return result state success WHEN http client succeeds', () async {
-    final String body = "body";
-    final Rocket rocket = Rocket.create();
-    final List<Rocket> rockets = [rocket];
-    when(httpClientMock.get(getRocketRequestUrl)).thenAnswer((realInvocation) => Future.value(body));
-    when(rocketMapperMock(body)).thenReturn(rockets);
+  group("getRockets", () {
+    test('getRockets SHOULD return result state success WHEN http client succeeds', () async {
+      final String body = "body";
+      final Rocket rocket = Rocket.create();
+      final List<Rocket> rockets = [rocket];
+      when(httpClientMock.get(getRocketRequestUrl)).thenAnswer((realInvocation) => Future.value(body));
+      when(rocketMapperMock(body)).thenReturn(rockets);
 
-    final ResultState<List<Rocket>> result = await sut.getRockets();
+      final ResultState<List<Rocket>> result = await sut.getRockets();
 
-    expect((result as Success).data, rockets);
-  });
+      expect((result as Success).data, rockets);
+    });
 
-  test('getRockets SHOULD return result state failure WHEN http client fails', () async {
-    final Exception error = Exception();
-    final ErrorType errorType = ErrorType.network();
-    when(httpClientMock.get(getRocketRequestUrl)).thenThrow(error);
-    when(errorMapperMock(error)).thenAnswer((realInvocation) => errorType);
+    test('getRockets SHOULD return result state failure WHEN http client fails', () async {
+      final Exception error = Exception();
+      final ErrorType errorType = ErrorType.network();
+      when(httpClientMock.get(getRocketRequestUrl)).thenThrow(error);
+      when(errorMapperMock(error)).thenAnswer((realInvocation) => errorType);
 
-    final ResultState<List<Rocket>> result = await sut.getRockets();
+      final ResultState<List<Rocket>> result = await sut.getRockets();
 
-    expect((result as Failure).errorType, errorType);
+      expect((result as Failure).errorType, errorType);
+    });
   });
 }
