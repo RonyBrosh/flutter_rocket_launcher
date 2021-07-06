@@ -18,7 +18,7 @@ class RocketLauncherDatabase {
     return database;
   }
 
-  Future closeDatabase() async {
+  void closeDatabase() {
     Database? database = _database;
     if (database != null) {
       database.close();

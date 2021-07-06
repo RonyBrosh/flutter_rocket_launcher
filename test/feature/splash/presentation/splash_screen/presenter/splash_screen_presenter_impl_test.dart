@@ -7,7 +7,7 @@ import 'package:flutter_rocket_launcher/features/splash/presentation/splash_scre
 import 'package:flutter_rocket_launcher/features/splash/presentation/splash_screen/presenter/splash_screen_presenter_impl.dart';
 import 'package:flutter_rocket_launcher/features/splash/presentation/splash_screen/router/splash_router.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 
 class SplashRouterMock extends Mock implements SplashRouter {}
 
@@ -21,7 +21,7 @@ void main() {
   test('onGithubLinkClicked SHOULD goToGithub WHEN called', () {
     sut.onGithubLinkClicked();
 
-    verify(splashRouterMock.goToGithub());
+    verify(() => splashRouterMock.goToGithub());
   });
 
   test('onScreenLoaded SHOULD emit SplashTitleAnimationState.ENTER WHEN called', () {
@@ -39,21 +39,21 @@ void main() {
   test('onTitleEnterAnimationEnd SHOULD goToWelcomeMessage WHEN IsWelcomeMessageEnabledUseCase fails', () {
     final ValueNotifier valueNotifier = sut.splashTitleAnimationState;
     valueNotifier.value = SplashTitleAnimationState.IDLE;
-    when(isWelcomeMessageEnabledUseCaseMock()).thenAnswer((realInvocation) => Future.value(ResultState.failure(ErrorType.unknown())));
-    when(splashRouterMock.goToWelcomeMessage()).thenAnswer((realInvocation) => Future.value());
+    when(() => isWelcomeMessageEnabledUseCaseMock()).thenAnswer((realInvocation) => Future.value(ResultState.failure(ErrorType.unknown())));
+    when(() => splashRouterMock.goToWelcomeMessage()).thenAnswer((realInvocation) => Future.value());
 
     fakeAsync((async) {
       sut.onTitleEnterAnimationEnd();
 
       async.flushTimers();
-      verify(splashRouterMock.goToWelcomeMessage());
+      verify(() => splashRouterMock.goToWelcomeMessage());
     });
   });
 
   test('onTitleEnterAnimationEnd SHOULD emit SplashTitleAnimationState.EXIT WHEN IsWelcomeMessageEnabledUseCase return false', () {
     final ValueNotifier valueNotifier = sut.splashTitleAnimationState;
     valueNotifier.value = SplashTitleAnimationState.IDLE;
-    when(isWelcomeMessageEnabledUseCaseMock()).thenAnswer((realInvocation) => Future.value(ResultState.success(false)));
+    when(() => isWelcomeMessageEnabledUseCaseMock()).thenAnswer((realInvocation) => Future.value(ResultState.success(false)));
 
     fakeAsync((async) {
       sut.onTitleEnterAnimationEnd();
@@ -66,13 +66,13 @@ void main() {
   test('onTitleEnterAnimationEnd SHOULD goToWelcomeMessage WHEN IsWelcomeMessageEnabledUseCase return true', () {
     final ValueNotifier valueNotifier = sut.splashTitleAnimationState;
     valueNotifier.value = SplashTitleAnimationState.IDLE;
-    when(isWelcomeMessageEnabledUseCaseMock()).thenAnswer((realInvocation) => Future.value(ResultState.success(true)));
+    when(() => isWelcomeMessageEnabledUseCaseMock()).thenAnswer((realInvocation) => Future.value(ResultState.success(true)));
 
     fakeAsync((async) {
       sut.onTitleEnterAnimationEnd();
 
       async.flushTimers();
-      verify(splashRouterMock.goToWelcomeMessage());
+      verify(() => splashRouterMock.goToWelcomeMessage());
     });
   });
 }

@@ -23,7 +23,7 @@ void main() async {
   final TableToRocketsMapperMock _tableToRocketsMapperMock = TableToRocketsMapperMock();
 
   final RocketsDatabaseSqflite sut = RocketsDatabaseSqflite(
-    database,
+    Future.value(database),
     _errorMapperMock,
     _rocketsToTableMapperMock,
     _tableToRocketsMapperMock,
@@ -44,18 +44,18 @@ void main() async {
     test('getRockets SHOULD return result state success WHEN query rockets succeeds', () async {
       final List<Rocket> rockets = List.filled(1, Rocket.create(id: "id"));
       final row = {
-        "id": "id",
-        "name": "name",
-        "country": "country",
-        "description": "description",
-        "imageUrl": "imageUrl",
-        "enginesCount": 100,
-        "isActive": 1,
+        RocketsDatabaseSqflite.COLUMN_ID: "id",
+        RocketsDatabaseSqflite.COLUMN_NAME: "name",
+        RocketsDatabaseSqflite.COLUMN_COUNTRY: "country",
+        RocketsDatabaseSqflite.COLUMN_DESCRIPTION: "description",
+        RocketsDatabaseSqflite.COLUMN_IMAGE_URL: "imageUrl",
+        RocketsDatabaseSqflite.COLUMN_ENGINES_COUNT: 100,
+        RocketsDatabaseSqflite.COLUMN_IS_ACTIVE: 1,
       };
       final List<Map<String, Object>> table = List.filled(1, row);
       when(() => _rocketsToTableMapperMock(rockets)).thenReturn(table);
       when(() => _tableToRocketsMapperMock(table)).thenReturn(rockets);
-      await database.insert("Rockets", row);
+      await database.insert(RocketsDatabaseSqflite.TABLE_NAME, row);
 
       final ResultState<List<Rocket>> result = await sut.getRockets();
 
@@ -66,13 +66,13 @@ void main() async {
   test('setRockets SHOULD save rockets to database WHEN called', () async {
     final List<Rocket> rockets = List.filled(1, Rocket.create(id: "id"));
     final List<Map<String, Object>> table = List.filled(1, {
-      "id": "id",
-      "name": "name",
-      "country": "country",
-      "description": "description",
-      "imageUrl": "imageUrl",
-      "enginesCount": 100,
-      "isActive": 1,
+      RocketsDatabaseSqflite.COLUMN_ID: "id",
+      RocketsDatabaseSqflite.COLUMN_NAME: "name",
+      RocketsDatabaseSqflite.COLUMN_COUNTRY: "country",
+      RocketsDatabaseSqflite.COLUMN_DESCRIPTION: "description",
+      RocketsDatabaseSqflite.COLUMN_IMAGE_URL: "imageUrl",
+      RocketsDatabaseSqflite.COLUMN_ENGINES_COUNT: 100,
+      RocketsDatabaseSqflite.COLUMN_IS_ACTIVE: 1,
     });
     when(() => _rocketsToTableMapperMock(rockets)).thenReturn(table);
 

@@ -6,36 +6,42 @@ import 'package:flutter_rocket_launcher/features/rockets/domain/model/rocket.dar
 import 'package:sqflite/sqflite.dart';
 
 class RocketsDatabaseSqflite implements RocketsDatabase {
-  static const String _tableName = "Rockets";
-  static const String _id = "id";
-  static const String _name = "name";
-  static const String _country = "country";
-  static const String _description = "description";
-  static const String _imageUrl = "imageUrl";
-  static const String _enginesCount = "enginesCount";
-  static const String _isActive = "isActive";
+  static const String TABLE_NAME = "Rockets";
+  static const String COLUMN_ID = "id";
+  static const String COLUMN_NAME = "name";
+  static const String COLUMN_COUNTRY = "country";
+  static const String COLUMN_DESCRIPTION = "description";
+  static const String COLUMN_IMAGE_URL = "imageUrl";
+  static const String COLUMN_ENGINES_COUNT = "enginesCount";
+  static const String COLUMN_IS_ACTIVE = "isActive";
 
-  static const String CREATE_TABLE = '''CREATE TABLE $_tableName (
-  $_id TEXT PRIMARY KEY, 
-  $_name TEXT NOT NULL,
-  $_country TEXT NOT NULL,
-  $_description TEXT NOT NULL,
-  $_imageUrl TEXT NOT NULL, 
-  $_enginesCount INTEGER NOT NULL,
-  $_isActive BOOLEAN NOT NULL
+  static const String CREATE_TABLE = '''CREATE TABLE $TABLE_NAME (
+  $COLUMN_ID TEXT PRIMARY KEY, 
+  $COLUMN_NAME TEXT NOT NULL,
+  $COLUMN_COUNTRY TEXT NOT NULL,
+  $COLUMN_DESCRIPTION TEXT NOT NULL,
+  $COLUMN_IMAGE_URL TEXT NOT NULL, 
+  $COLUMN_ENGINES_COUNT INTEGER NOT NULL,
+  $COLUMN_IS_ACTIVE BOOLEAN NOT NULL
   )''';
 
-  final Database _database;
+  final Future<Database> _database;
   final Mapper<Exception, ErrorType> _errorMapper;
   final Mapper<List<Rocket>, List<Map<String, Object>>> _rocketsToTableMapper;
   final Mapper<List<Map<String, Object?>>, List<Rocket>> _tableToRocketsMapper;
 
-  RocketsDatabaseSqflite(this._database, this._errorMapper, this._rocketsToTableMapper, this._tableToRocketsMapper);
+  RocketsDatabaseSqflite(
+    this._database,
+    this._errorMapper,
+    this._rocketsToTableMapper,
+    this._tableToRocketsMapper,
+  );
 
   @override
   Future<ResultState<List<Rocket>>> getRockets() async {
     try {
-      List<Map<String, Object?>> table = await _database.query(_tableName);
+      Database database = await _database;
+      List<Map<String, Object?>> table = await database.query(TABLE_NAME);
       List<Rocket> rockets = _tableToRocketsMapper(table);
       return ResultState.success(rockets);
     } on Exception catch (exception) {
@@ -46,10 +52,11 @@ class RocketsDatabaseSqflite implements RocketsDatabase {
   @override
   Future<bool> setRockets(List<Rocket> rockets) async {
     try {
-      Batch batch = _database.batch();
+      Database database = await _database;
+      Batch batch = database.batch();
       List<Map<String, Object>> table = _rocketsToTableMapper(rockets);
       table.forEach((row) {
-        batch.insert(_tableName, row);
+        batch.insert(TABLE_NAME, row, conflictAlgorithm: ConflictAlgorithm.replace);
       });
       List result = await batch.commit();
       return result.isNotEmpty;

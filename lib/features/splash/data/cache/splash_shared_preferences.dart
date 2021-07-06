@@ -16,7 +16,7 @@ class SplashSharedPreferences implements SplashCache {
     try {
       final bool isWelcomeMessageEnabled = await _sharedPreferencesWrapper.getBool(_isWelcomeMessageEnabledKey, defaultValue: true);
       return Future.value(ResultState.success(isWelcomeMessageEnabled));
-    } catch (exception) {
+    } on Exception catch (exception) {
       return Future.value(ResultState.failure(_errorMapper(exception)));
     }
   }
@@ -26,7 +26,7 @@ class SplashSharedPreferences implements SplashCache {
     try {
       final bool result = await _sharedPreferencesWrapper.setBool(_isWelcomeMessageEnabledKey, isEnabled);
       return Future.value(ResultState.success(result));
-    } catch (exception) {
+    } on Exception catch (exception) {
       return Future.value(ResultState.failure(_errorMapper(exception)));
     }
   }

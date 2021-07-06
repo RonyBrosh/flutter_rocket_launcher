@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   test('orZero SHOULD return 0 WHEN input is null', () {
-    final int input = null;
+    final int? input = null;
     final int expected = 0;
 
     final int result = input.orZero();

@@ -5,7 +5,7 @@ import 'package:flutter_rocket_launcher/core/util/mapper/mapper.dart';
 import 'package:flutter_rocket_launcher/features/rockets/data/network/api/rockets_http_client.dart';
 import 'package:flutter_rocket_launcher/features/rockets/domain/model/rocket.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 
 class HttpClientMock extends Mock implements HttpClient {}
 
@@ -25,8 +25,8 @@ void main() {
       final String body = "body";
       final Rocket rocket = Rocket.create();
       final List<Rocket> rockets = [rocket];
-      when(httpClientMock.get(getRocketRequestUrl)).thenAnswer((realInvocation) => Future.value(body));
-      when(rocketMapperMock(body)).thenReturn(rockets);
+      when(() => httpClientMock.get(getRocketRequestUrl)).thenAnswer((realInvocation) => Future.value(body));
+      when(() => rocketMapperMock(body)).thenReturn(rockets);
 
       final ResultState<List<Rocket>> result = await sut.getRockets();
 
@@ -36,8 +36,8 @@ void main() {
     test('getRockets SHOULD return result state failure WHEN http client fails', () async {
       final Exception error = Exception();
       final ErrorType errorType = ErrorType.network();
-      when(httpClientMock.get(getRocketRequestUrl)).thenThrow(error);
-      when(errorMapperMock(error)).thenAnswer((realInvocation) => errorType);
+      when(() => httpClientMock.get(getRocketRequestUrl)).thenThrow(error);
+      when(() => errorMapperMock(error)).thenAnswer((realInvocation) => errorType);
 
       final ResultState<List<Rocket>> result = await sut.getRockets();
 

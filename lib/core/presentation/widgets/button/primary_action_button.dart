@@ -17,7 +17,7 @@ class PrimaryActionButton extends StatelessWidget {
         child: ElevatedButton(
           child: Text(
             _text,
-            style: Theme.of(context).textTheme.button.apply(color: Colors.white),
+            style: Theme.of(context).textTheme.button?.apply(color: Colors.white),
           ),
           onPressed: _onClicked,
         ),

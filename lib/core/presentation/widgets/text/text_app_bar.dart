@@ -9,7 +9,7 @@ class TextAppBAr extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       _text,
-      style: Theme.of(context).textTheme.headline6.apply(color: Colors.white),
+      style: Theme.of(context).textTheme.headline6?.apply(color: Colors.white),
     );
   }
 }

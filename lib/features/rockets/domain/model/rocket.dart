@@ -13,8 +13,24 @@ class Rocket {
   final int enginesCount;
   final bool isActive;
 
-  factory Rocket.create({String id = "", String name = "", String country = "", String description = "", String imageUrl = "", int enginesCount = 0, bool isActive = false}) {
-    return Rocket._(id.orEmpty(), name.orEmpty(), country.orEmpty(), description.orEmpty(), imageUrl.orEmpty(), enginesCount.orZero(), isActive.orFalse());
+  factory Rocket.create({
+    String? id = "",
+    String? name = "",
+    String? country = "",
+    String? description = "",
+    String? imageUrl = "",
+    int? enginesCount = 0,
+    bool? isActive = false,
+  }) {
+    return Rocket._(
+      id.orEmpty(),
+      name.orEmpty(),
+      country.orEmpty(),
+      description.orEmpty(),
+      imageUrl.orEmpty(),
+      enginesCount.orZero(),
+      isActive.orFalse(),
+    );
   }
 
   @override

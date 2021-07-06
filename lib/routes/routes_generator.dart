@@ -5,7 +5,7 @@ import 'package:flutter_rocket_launcher/routes/features/rockets_routes.dart';
 import 'package:flutter_rocket_launcher/routes/features/splash_routes.dart';
 
 class RoutesGenerator {
-  static RoutesGenerator _instance;
+  static RoutesGenerator? _instance;
 
   List<FeatureRoutes> _featureRoutes = [
     SplashRoutes(),
@@ -15,11 +15,13 @@ class RoutesGenerator {
   RoutesGenerator._();
 
   static RoutesGenerator getInstance() {
-    if (_instance == null) {
-      _instance = RoutesGenerator._();
+    RoutesGenerator? instance = _instance;
+    if (instance == null) {
+      instance = RoutesGenerator._();
     }
 
-    return _instance;
+    _instance = instance;
+    return instance;
   }
 
   Route<dynamic> generateRoute(RouteSettings settings) {

@@ -12,9 +12,9 @@ class WelcomeActionsWidget extends StatefulWidget {
   final void Function(bool) _onToggleWelcomeMessageClicked;
 
   WelcomeActionsWidget({
-    @required Function() onNextClicked,
-    @required Function() onUrlClicked,
-    @required Function(bool) onToggleWelcomeMessageClicked,
+    required Function() onNextClicked,
+    required Function() onUrlClicked,
+    required Function(bool) onToggleWelcomeMessageClicked,
   })  : _onNextClicked = onNextClicked,
         _onUrlClicked = onUrlClicked,
         _onToggleWelcomeMessageClicked = onToggleWelcomeMessageClicked;

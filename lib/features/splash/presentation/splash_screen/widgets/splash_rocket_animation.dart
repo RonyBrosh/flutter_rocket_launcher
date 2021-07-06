@@ -12,7 +12,7 @@ class SplashRocketAnimation extends StatefulWidget {
 }
 
 class _SplashRocketAnimationState extends State<SplashRocketAnimation> {
-  Artboard _artboard;
+  Artboard? _artboard;
 
   @override
   void initState() {
@@ -29,13 +29,14 @@ class _SplashRocketAnimationState extends State<SplashRocketAnimation> {
 
   @override
   Widget build(BuildContext context) {
-    return _artboard == null
+    Artboard? artboard = _artboard;
+    return artboard == null
         ? Center(
             child: SvgPicture.asset(SplashAssets.SPLASH_ROCKET),
           )
         : Rive(
             fit: BoxFit.none,
-            artboard: _artboard,
+            artboard: artboard,
           );
   }
 }

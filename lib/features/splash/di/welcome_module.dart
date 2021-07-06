@@ -11,7 +11,7 @@ import 'package:flutter_rocket_launcher/features/splash/presentation/welcome/rou
 class WelcomeModule {
   static WelcomeScreenPresenter provideWelcomeScreenPresenter() {
     return WelcomeScreenPresenterImpl(
-        WelcomeRouterImpl(RouterServiceLocator.getInstance().navigatorKey.currentState),
+        WelcomeRouterImpl(RouterServiceLocator.getInstance().navigatorKey.currentState!),
         SetIsWelcomeMessageEnabledUseCaseImpl(
           SplashRepositoryImpl(SplashSharedPreferences(
             SharedPreferencesWrapper(),

@@ -4,7 +4,7 @@ import 'package:flutter_rocket_launcher/core/domain/model/result_state.dart';
 import 'package:flutter_rocket_launcher/core/util/mapper/mapper.dart';
 import 'package:flutter_rocket_launcher/features/splash/data/cache/splash_shared_preferences.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 
 class ErrorMapperMock extends Mock implements Mapper<Exception, ErrorType> {}
 
@@ -18,7 +18,7 @@ void main() {
 
   test('isWelcomeMessageEnabled SHOULD return result state success WHEN shared preferences wrapper succeeds', () async {
     final bool expected = false;
-    when(sharedPreferencesWrapperMock.getBool(key, defaultValue: true)).thenAnswer((realInvocation) => Future.value(expected));
+    when(() => sharedPreferencesWrapperMock.getBool(key, defaultValue: true)).thenAnswer((realInvocation) => Future.value(expected));
 
     final ResultState<bool> result = await sut.isWelcomeMessageEnabled();
 
@@ -28,8 +28,8 @@ void main() {
   test('isWelcomeMessageEnabled SHOULD return result state failure WHEN shared preferences wrapper fails', () async {
     final Exception error = Exception();
     final ErrorType errorType = ErrorType.unknown();
-    when(sharedPreferencesWrapperMock.getBool(key, defaultValue: true)).thenThrow(error);
-    when(errorMapperMock(error)).thenAnswer((realInvocation) => errorType);
+    when(() => sharedPreferencesWrapperMock.getBool(key, defaultValue: true)).thenThrow(error);
+    when(() => errorMapperMock(error)).thenAnswer((realInvocation) => errorType);
 
     final ResultState<bool> result = await sut.isWelcomeMessageEnabled();
 
@@ -39,7 +39,7 @@ void main() {
   test('setIsWelcomeMessageEnabled SHOULD return result state success WHEN shared preferences wrapper succeeds', () async {
     final isEnabled = true;
     final bool expected = true;
-    when(sharedPreferencesWrapperMock.setBool(key, isEnabled)).thenAnswer((realInvocation) => Future.value(expected));
+    when(() => sharedPreferencesWrapperMock.setBool(key, isEnabled)).thenAnswer((realInvocation) => Future.value(expected));
 
     final ResultState<bool> result = await sut.setIsWelcomeMessageEnabled(isEnabled);
 
@@ -50,8 +50,8 @@ void main() {
     final isEnabled = true;
     final Exception error = Exception();
     final ErrorType errorType = ErrorType.unknown();
-    when(sharedPreferencesWrapperMock.setBool(key, isEnabled)).thenThrow(error);
-    when(errorMapperMock(error)).thenAnswer((realInvocation) => errorType);
+    when(() => sharedPreferencesWrapperMock.setBool(key, isEnabled)).thenThrow(error);
+    when(() => errorMapperMock(error)).thenAnswer((realInvocation) => errorType);
 
     final ResultState<bool> result = await sut.setIsWelcomeMessageEnabled(isEnabled);
 

@@ -37,7 +37,7 @@ class _TextLinkState extends State<TextLink> {
       child: Padding(
         padding: const EdgeInsets.all(SPACE_LARGE),
         child: DefaultTextStyle(
-          style: Theme.of(context).textTheme.caption.apply(color: _getTextColour(context)),
+          style: Theme.of(context).textTheme.caption!.apply(color: _getTextColour(context)),
           child: Text(widget._text),
         ),
       ),
@@ -52,9 +52,9 @@ class _TextLinkState extends State<TextLink> {
 
   Color _getTextColour(BuildContext context) {
     if (_isPressed) {
-      return widget._isDark ? Theme.of(context).textTheme.caption.color.withAlpha(70) : Colors.white70;
+      return widget._isDark ? Theme.of(context).textTheme.caption!.color!.withAlpha(70) : Colors.white70;
     } else {
-      return widget._isDark ? Theme.of(context).textTheme.caption.color : Colors.white;
+      return widget._isDark ? Theme.of(context).textTheme.caption!.color! : Colors.white;
     }
   }
 }

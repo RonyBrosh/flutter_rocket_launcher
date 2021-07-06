@@ -7,7 +7,7 @@ import 'package:flutter_rocket_launcher/features/rockets/presentation/list/model
 import 'package:flutter_rocket_launcher/features/rockets/presentation/list/presenter/rocket_list_presenter_impl.dart';
 import 'package:flutter_rocket_launcher/features/rockets/presentation/list/router/rocket_list_router.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 
 import '../../../../../util/ValueNotifierSpy.dart';
 
@@ -29,7 +29,7 @@ void main() {
     test('loadRockets SHOULD emit Loading AND Error WHEN use case fails', () {
       final ErrorType errorType = ErrorType.network();
       final ValueNotifierSpy valueNotifierSpy = ValueNotifierSpy(sut.rocketListState);
-      when(getRocketsUseCaseMock()).thenAnswer((realInvocation) => Future.value(ResultState.failure(errorType)));
+      when(() => getRocketsUseCaseMock()).thenAnswer((realInvocation) => Future.value(ResultState.failure(errorType)));
 
       fakeAsync((async) {
         sut.loadRockets();
@@ -45,7 +45,7 @@ void main() {
     test('loadRockets SHOULD emit Loading AND Content WHEN use case succeeds AND content is not empty', () {
       final List<Rocket> content = [Rocket.create()];
       final ValueNotifierSpy valueNotifierSpy = ValueNotifierSpy(sut.rocketListState);
-      when(getRocketsUseCaseMock()).thenAnswer((realInvocation) => Future.value(ResultState.success(content)));
+      when(() => getRocketsUseCaseMock()).thenAnswer((realInvocation) => Future.value(ResultState.success(content)));
 
       fakeAsync((async) {
         sut.loadRockets();
@@ -60,14 +60,14 @@ void main() {
 
     test('loadRockets SHOULD call refreshRockets WHEN use case succeeds AND content is empty', () {
       final List<Rocket> content = List.empty();
-      when(getRocketsUseCaseMock()).thenAnswer((realInvocation) => Future.value(ResultState.success(content)));
-      when(getRocketsUseCaseMock(isRefresh: true)).thenAnswer((realInvocation) => Future.value(ResultState.success(content)));
+      when(() => getRocketsUseCaseMock()).thenAnswer((realInvocation) => Future.value(ResultState.success(content)));
+      when(() => getRocketsUseCaseMock(isRefresh: true)).thenAnswer((realInvocation) => Future.value(ResultState.success(content)));
 
       fakeAsync((async) {
         sut.loadRockets();
 
         async.flushMicrotasks();
-        verify(getRocketsUseCaseMock(isRefresh: true));
+        verify(() => getRocketsUseCaseMock(isRefresh: true));
       });
     });
   });
@@ -76,7 +76,7 @@ void main() {
     test('refreshRockets SHOULD emit empty content AND Loading AND Error WHEN use case fails', () {
       final ErrorType errorType = ErrorType.network();
       final ValueNotifierSpy valueNotifierSpy = ValueNotifierSpy(sut.rocketListState);
-      when(getRocketsUseCaseMock(isRefresh: true)).thenAnswer((realInvocation) => Future.value(ResultState.failure(errorType)));
+      when(() => getRocketsUseCaseMock(isRefresh: true)).thenAnswer((realInvocation) => Future.value(ResultState.failure(errorType)));
 
       fakeAsync((async) {
         sut.refreshRockets();
@@ -94,7 +94,7 @@ void main() {
     test('refreshRockets SHOULD emit empty content AND Loading AND Content WHEN use case succeeds', () {
       final List<Rocket> content = [Rocket.create()];
       final ValueNotifierSpy valueNotifierSpy = ValueNotifierSpy(sut.rocketListState);
-      when(getRocketsUseCaseMock(isRefresh: true)).thenAnswer((realInvocation) => Future.value(ResultState.success(content)));
+      when(() => getRocketsUseCaseMock(isRefresh: true)).thenAnswer((realInvocation) => Future.value(ResultState.success(content)));
 
       fakeAsync((async) {
         sut.refreshRockets();
@@ -138,7 +138,7 @@ void main() {
       final List<Rocket> content = [Rocket.create(id: "rocket 1", isActive: true), Rocket.create(id: "rocket 2", isActive: false)];
       final List<Rocket> filteredContent = [Rocket.create(id: "rocket 1", isActive: true)];
       final ValueNotifierSpy valueNotifierSpy = ValueNotifierSpy(sut.rocketListState);
-      when(getRocketsUseCaseMock()).thenAnswer((realInvocation) => Future.value(ResultState.success(content)));
+      when(() => getRocketsUseCaseMock()).thenAnswer((realInvocation) => Future.value(ResultState.success(content)));
 
       fakeAsync((async) {
         sut.loadRockets();
@@ -158,7 +158,7 @@ void main() {
       final List<Rocket> content = [Rocket.create(id: "rocket 1", isActive: true), Rocket.create(id: "rocket 2", isActive: false)];
       final List<Rocket> filteredContent = [Rocket.create(id: "rocket 1", isActive: true)];
       final ValueNotifierSpy valueNotifierSpy = ValueNotifierSpy(sut.rocketListState);
-      when(getRocketsUseCaseMock()).thenAnswer((realInvocation) => Future.value(ResultState.success(content)));
+      when(() => getRocketsUseCaseMock()).thenAnswer((realInvocation) => Future.value(ResultState.success(content)));
 
       fakeAsync((async) {
         sut.loadRockets();
@@ -182,6 +182,6 @@ void main() {
 
     sut.onRocketClicked(rocket);
 
-    verify(rocketListRouterMock.goToRocketDetails(rocket));
+    verify(() => rocketListRouterMock.goToRocketDetails(rocket));
   });
 }

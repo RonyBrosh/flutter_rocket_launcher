@@ -24,7 +24,7 @@ class RocketJsonToDomainListMapper implements Mapper<String, List<Rocket>> {
       final List<String> imagesUrls = List.from(nextJsonObject['flickr_images'], growable: false);
       return imagesUrls[0];
     } catch (error) {
-      return null;
+      return "";
     }
   }
 
@@ -32,7 +32,7 @@ class RocketJsonToDomainListMapper implements Mapper<String, List<Rocket>> {
     try {
       return nextJsonObject['engines']['number'];
     } catch (error) {
-      return null;
+      return 0;
     }
   }
 }

@@ -11,7 +11,7 @@ import 'package:flutter_rocket_launcher/features/splash/presentation/splash_scre
 class SplashModule {
   static SplashScreenPresenter provideSplashScreenPresenter() {
     return SplashScreenPresenterImpl(
-        SplashRouterImpl(RouterServiceLocator.getInstance().navigatorKey.currentState),
+        SplashRouterImpl(RouterServiceLocator.getInstance().navigatorKey.currentState!),
         IsWelcomeMessageEnabledUseCaseImpl(
           SplashRepositoryImpl(SplashSharedPreferences(
             SharedPreferencesWrapper(),

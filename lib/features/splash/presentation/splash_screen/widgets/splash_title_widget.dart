@@ -9,10 +9,10 @@ class SplashTitleWidget extends StatefulWidget {
   final void Function() _onTitleExitAnimationEnd;
 
   SplashTitleWidget({
-    @required ValueNotifier<SplashTitleAnimationState> splashTitleAnimationState,
-    @required Function() onTitleEnterAnimationEnd,
-    @required Function() onTitleExitAnimationEnd,
-  })  : this._splashTitleAnimationState = splashTitleAnimationState,
+    required ValueNotifier<SplashTitleAnimationState> splashTitleAnimationState,
+    required Function() onTitleEnterAnimationEnd,
+    required Function() onTitleExitAnimationEnd,
+  })   : this._splashTitleAnimationState = splashTitleAnimationState,
         this._onTitleEnterAnimationEnd = onTitleEnterAnimationEnd,
         this._onTitleExitAnimationEnd = onTitleExitAnimationEnd;
 
@@ -25,10 +25,10 @@ class SplashTitleWidget extends StatefulWidget {
 class _SplashTitleWidgetState extends State<SplashTitleWidget> with TickerProviderStateMixin {
   final int _animationDuration = 400;
 
-  AnimationController _topTitleAnimationController;
-  AnimationController _bottomTitleAnimationController;
-  Animation _topTitleAnimation;
-  Animation _bottomTitleAnimation;
+  late AnimationController _topTitleAnimationController;
+  late AnimationController _bottomTitleAnimationController;
+  late Animation _topTitleAnimation;
+  late Animation _bottomTitleAnimation;
 
   @override
   void initState() {
