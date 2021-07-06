@@ -6,5 +6,5 @@ abstract class RocketsDatabase {
 
   Future<ResultState<List<Rocket>>> getRockets();
 
-  void setRockets(List<Rocket> rockets);
+  Future<bool> setRockets(List<Rocket> rockets);
 }

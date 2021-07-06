@@ -18,7 +18,7 @@ class RocketsHttpClient implements RocketsApi {
       final String response = await _httpClient.get("/v4/rockets");
       final List<Rocket> result = _rocketMapper(response);
       return Future.value(ResultState.success(result));
-    } catch (exception) {
+    } on Exception catch (exception) {
       return Future.value(ResultState.failure(_errorMapper(exception)));
     }
   }

@@ -1,4 +1,4 @@
-extension StringExtentions on String {
+extension StringExtentions on String? {
   String orEmpty() {
     return this ?? "";
   }

@@ -7,7 +7,7 @@ abstract class ResultState<T> {
 
   factory ResultState.failure(ErrorType errorType) => Failure._(errorType);
 
-  void fold({Function(T) success, Function(ErrorType) failure}) {
+  void fold({required Function(T) success, required Function(ErrorType) failure}) {
     if (this is Success) {
       success((this as Success).data);
     } else {

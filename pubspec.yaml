@@ -5,7 +5,7 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -13,9 +13,9 @@ dependencies:
 
   http: ^0.13.1
   shared_preferences: ^2.0.5
-  flutter_svg: ^0.21.0+1
+  flutter_svg: ^0.22.0
   cupertino_icons: ^1.0.2
-  url_launcher: ^5.7.10
+  url_launcher: ^6.0.9
   rive: ^0.7.4
   sqflite:
   path:
@@ -25,8 +25,10 @@ dev_dependencies:
     sdk: flutter
 
   mockito: ^5.0.10
+  mocktail: ^0.1.4
   build_runner: ^2.0.3
   fake_async: ^1.2.0
+  sqflite_common_ffi:
 
 flutter:
   uses-material-design: true

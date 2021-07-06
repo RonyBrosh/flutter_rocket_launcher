@@ -1,3 +1,4 @@
+import 'package:fake_async/fake_async.dart';
 import 'package:flutter_rocket_launcher/core/domain/model/error_type.dart';
 import 'package:flutter_rocket_launcher/core/domain/model/result_state.dart';
 import 'package:flutter_rocket_launcher/features/rockets/domain/model/rocket.dart';
@@ -24,134 +25,156 @@ void main() {
     sut.rocketListState.value = RocketListState.loading();
   });
 
-  testWidgets('loadRockets SHOULD emit Loading AND Error WHEN use case fails', (WidgetTester widgetTester) async {
-    final ErrorType errorType = ErrorType.network();
-    final ValueNotifierSpy valueNotifierSpy = ValueNotifierSpy(sut.rocketListState);
-    when(getRocketsUseCaseMock()).thenAnswer((realInvocation) => Future.value(ResultState.failure(errorType)));
+  group('loadRockets', () {
+    test('loadRockets SHOULD emit Loading AND Error WHEN use case fails', () {
+      final ErrorType errorType = ErrorType.network();
+      final ValueNotifierSpy valueNotifierSpy = ValueNotifierSpy(sut.rocketListState);
+      when(getRocketsUseCaseMock()).thenAnswer((realInvocation) => Future.value(ResultState.failure(errorType)));
 
-    sut.loadRockets();
+      fakeAsync((async) {
+        sut.loadRockets();
 
-    await widgetTester.pump(Duration(seconds: 1));
-    valueNotifierSpy.assertOrdered([
-      RocketListState.loading(),
-      RocketListState.error(errorType),
-    ]);
+        async.flushMicrotasks();
+        valueNotifierSpy.assertOrdered([
+          RocketListState.loading(),
+          RocketListState.error(errorType),
+        ]);
+      });
+    });
+
+    test('loadRockets SHOULD emit Loading AND Content WHEN use case succeeds AND content is not empty', () {
+      final List<Rocket> content = [Rocket.create()];
+      final ValueNotifierSpy valueNotifierSpy = ValueNotifierSpy(sut.rocketListState);
+      when(getRocketsUseCaseMock()).thenAnswer((realInvocation) => Future.value(ResultState.success(content)));
+
+      fakeAsync((async) {
+        sut.loadRockets();
+
+        async.flushMicrotasks();
+        valueNotifierSpy.assertOrdered([
+          RocketListState.loading(),
+          RocketListState.content(content),
+        ]);
+      });
+    });
+
+    test('loadRockets SHOULD call refreshRockets WHEN use case succeeds AND content is empty', () {
+      final List<Rocket> content = List.empty();
+      when(getRocketsUseCaseMock()).thenAnswer((realInvocation) => Future.value(ResultState.success(content)));
+      when(getRocketsUseCaseMock(isRefresh: true)).thenAnswer((realInvocation) => Future.value(ResultState.success(content)));
+
+      fakeAsync((async) {
+        sut.loadRockets();
+
+        async.flushMicrotasks();
+        verify(getRocketsUseCaseMock(isRefresh: true));
+      });
+    });
   });
 
-  testWidgets('loadRockets SHOULD emit Loading AND Content WHEN use case succeeds AND content is not empty', (WidgetTester widgetTester) async {
-    final List<Rocket> content = [Rocket.create()];
-    final ValueNotifierSpy valueNotifierSpy = ValueNotifierSpy(sut.rocketListState);
-    when(getRocketsUseCaseMock()).thenAnswer((realInvocation) => Future.value(ResultState.success(content)));
+  group('refreshRockets', () {
+    test('refreshRockets SHOULD emit empty content AND Loading AND Error WHEN use case fails', () {
+      final ErrorType errorType = ErrorType.network();
+      final ValueNotifierSpy valueNotifierSpy = ValueNotifierSpy(sut.rocketListState);
+      when(getRocketsUseCaseMock(isRefresh: true)).thenAnswer((realInvocation) => Future.value(ResultState.failure(errorType)));
 
-    sut.loadRockets();
+      fakeAsync((async) {
+        sut.refreshRockets();
 
-    await widgetTester.pump(Duration(seconds: 1));
-    valueNotifierSpy.assertOrdered([
-      RocketListState.loading(),
-      RocketListState.content(content),
-    ]);
+        async.flushMicrotasks();
+        valueNotifierSpy.assertOrdered([
+          RocketListState.loading(),
+          RocketListState.content(List.empty()),
+          RocketListState.loading(),
+          RocketListState.error(errorType),
+        ]);
+      });
+    });
+
+    test('refreshRockets SHOULD emit empty content AND Loading AND Content WHEN use case succeeds', () {
+      final List<Rocket> content = [Rocket.create()];
+      final ValueNotifierSpy valueNotifierSpy = ValueNotifierSpy(sut.rocketListState);
+      when(getRocketsUseCaseMock(isRefresh: true)).thenAnswer((realInvocation) => Future.value(ResultState.success(content)));
+
+      fakeAsync((async) {
+        sut.refreshRockets();
+
+        async.flushMicrotasks();
+        valueNotifierSpy.assertOrdered([
+          RocketListState.loading(),
+          RocketListState.content(List.empty()),
+          RocketListState.loading(),
+          RocketListState.content(content),
+        ]);
+      });
+    });
   });
 
-  testWidgets('loadRockets SHOULD call refreshRockets WHEN use case succeeds AND content is empty', (WidgetTester widgetTester) async {
-    final List<Rocket> content = List.empty();
-    when(getRocketsUseCaseMock()).thenAnswer((realInvocation) => Future.value(ResultState.success(content)));
-    when(getRocketsUseCaseMock(isRefresh: true)).thenAnswer((realInvocation) => Future.value(ResultState.success(content)));
+  group('toggleFilter', () {
+    test('toggleFilter SHOULD do nothing WHEN state is Error', () {
+      final ErrorType errorType = ErrorType.network();
+      final ValueNotifierSpy valueNotifierSpy = ValueNotifierSpy(sut.rocketListState);
+      sut.rocketListState.value = RocketListState.error(errorType);
 
-    sut.loadRockets();
+      sut.toggleFilter(true);
 
-    await widgetTester.pump(Duration(seconds: 1));
-    verify(getRocketsUseCaseMock(isRefresh: true));
-  });
+      valueNotifierSpy.assertOrdered([
+        RocketListState.loading(),
+        RocketListState.error(errorType),
+      ]);
+    });
 
-  testWidgets('refreshRockets SHOULD emit empty content AND Loading AND Error WHEN use case fails', (WidgetTester widgetTester) async {
-    final ErrorType errorType = ErrorType.network();
-    final ValueNotifierSpy valueNotifierSpy = ValueNotifierSpy(sut.rocketListState);
-    when(getRocketsUseCaseMock(isRefresh: true)).thenAnswer((realInvocation) => Future.value(ResultState.failure(errorType)));
+    test('toggleFilter SHOULD do nothing WHEN state is Loading', () {
+      final ValueNotifierSpy valueNotifierSpy = ValueNotifierSpy(sut.rocketListState);
 
-    sut.refreshRockets();
+      sut.toggleFilter(true);
 
-    await widgetTester.pump(Duration(seconds: 1));
-    valueNotifierSpy.assertOrdered([
-      RocketListState.loading(),
-      RocketListState.content(List.empty()),
-      RocketListState.loading(),
-      RocketListState.error(errorType),
-    ]);
-  });
+      valueNotifierSpy.assertOrdered([
+        RocketListState.loading(),
+      ]);
+    });
 
-  testWidgets('refreshRockets SHOULD emit empty content AND Loading AND Content WHEN use case succeeds', (WidgetTester widgetTester) async {
-    final List<Rocket> content = [Rocket.create()];
-    final ValueNotifierSpy valueNotifierSpy = ValueNotifierSpy(sut.rocketListState);
-    when(getRocketsUseCaseMock(isRefresh: true)).thenAnswer((realInvocation) => Future.value(ResultState.success(content)));
+    test('toggleFilter SHOULD emit filtered content WHEN isFilterMode is true', () {
+      final List<Rocket> content = [Rocket.create(id: "rocket 1", isActive: true), Rocket.create(id: "rocket 2", isActive: false)];
+      final List<Rocket> filteredContent = [Rocket.create(id: "rocket 1", isActive: true)];
+      final ValueNotifierSpy valueNotifierSpy = ValueNotifierSpy(sut.rocketListState);
+      when(getRocketsUseCaseMock()).thenAnswer((realInvocation) => Future.value(ResultState.success(content)));
 
-    sut.refreshRockets();
+      fakeAsync((async) {
+        sut.loadRockets();
+        async.flushMicrotasks();
 
-    await widgetTester.pump(Duration(seconds: 1));
-    valueNotifierSpy.assertOrdered([
-      RocketListState.loading(),
-      RocketListState.content(List.empty()),
-      RocketListState.loading(),
-      RocketListState.content(content),
-    ]);
-  });
+        sut.toggleFilter(true);
 
-  test('toggleFilter SHOULD do nothing WHEN state is Error', () {
-    final ErrorType errorType = ErrorType.network();
-    final ValueNotifierSpy valueNotifierSpy = ValueNotifierSpy(sut.rocketListState);
-    sut.rocketListState.value = RocketListState.error(errorType);
+        valueNotifierSpy.assertOrdered([
+          RocketListState.loading(),
+          RocketListState.content(content),
+          RocketListState.content(filteredContent),
+        ]);
+      });
+    });
 
-    sut.toggleFilter(true);
+    test('toggleFilter SHOULD emit all content WHEN isFilterMode is false', () {
+      final List<Rocket> content = [Rocket.create(id: "rocket 1", isActive: true), Rocket.create(id: "rocket 2", isActive: false)];
+      final List<Rocket> filteredContent = [Rocket.create(id: "rocket 1", isActive: true)];
+      final ValueNotifierSpy valueNotifierSpy = ValueNotifierSpy(sut.rocketListState);
+      when(getRocketsUseCaseMock()).thenAnswer((realInvocation) => Future.value(ResultState.success(content)));
 
-    valueNotifierSpy.assertOrdered([
-      RocketListState.loading(),
-      RocketListState.error(errorType),
-    ]);
-  });
+      fakeAsync((async) {
+        sut.loadRockets();
+        async.flushMicrotasks();
 
-  test('toggleFilter SHOULD do nothing WHEN state is Loading', () {
-    final ValueNotifierSpy valueNotifierSpy = ValueNotifierSpy(sut.rocketListState);
+        sut.toggleFilter(true);
+        sut.toggleFilter(false);
 
-    sut.toggleFilter(true);
-
-    valueNotifierSpy.assertOrdered([
-      RocketListState.loading(),
-    ]);
-  });
-
-  testWidgets('toggleFilter SHOULD emit filtered content WHEN isFilterMode is true', (WidgetTester widgetTester) async {
-    final List<Rocket> content = [Rocket.create(id: "rocket 1", isActive: true), Rocket.create(id: "rocket 2", isActive: false)];
-    final List<Rocket> filteredContent = [Rocket.create(id: "rocket 1", isActive: true)];
-    final ValueNotifierSpy valueNotifierSpy = ValueNotifierSpy(sut.rocketListState);
-    when(getRocketsUseCaseMock()).thenAnswer((realInvocation) => Future.value(ResultState.success(content)));
-    sut.loadRockets();
-    await widgetTester.pump(Duration(seconds: 1));
-
-    sut.toggleFilter(true);
-
-    valueNotifierSpy.assertOrdered([
-      RocketListState.loading(),
-      RocketListState.content(content),
-      RocketListState.content(filteredContent),
-    ]);
-  });
-
-  testWidgets('toggleFilter SHOULD emit all content WHEN isFilterMode is false', (WidgetTester widgetTester) async {
-    final List<Rocket> content = [Rocket.create(id: "rocket 1", isActive: true), Rocket.create(id: "rocket 2", isActive: false)];
-    final List<Rocket> filteredContent = [Rocket.create(id: "rocket 1", isActive: true)];
-    final ValueNotifierSpy valueNotifierSpy = ValueNotifierSpy(sut.rocketListState);
-    when(getRocketsUseCaseMock()).thenAnswer((realInvocation) => Future.value(ResultState.success(content)));
-    sut.loadRockets();
-    await widgetTester.pump(Duration(seconds: 1));
-    sut.toggleFilter(true);
-
-    sut.toggleFilter(false);
-
-    valueNotifierSpy.assertOrdered([
-      RocketListState.loading(),
-      RocketListState.content(content),
-      RocketListState.content(filteredContent),
-      RocketListState.content(content),
-    ]);
+        valueNotifierSpy.assertOrdered([
+          RocketListState.loading(),
+          RocketListState.content(content),
+          RocketListState.content(filteredContent),
+          RocketListState.content(content),
+        ]);
+      });
+    });
   });
 
   test('onRocketClicked SHOULD navigate to rocket details WHEN clicked', () {
