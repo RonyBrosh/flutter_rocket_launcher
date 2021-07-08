@@ -13,26 +13,55 @@ void main() {
   final ClientMock clientMock = ClientMock();
   final HttpClient sut = HttpClient(baseUrl, clientMock);
 
-  test('getRockets SHOULD throw exception WHEN api fail with exception', () {
-    when(() => clientMock.get(uri)).thenAnswer((_) async => throw Exception());
+  group("get", () {
+    test('get SHOULD throw exception WHEN api fail with exception', () {
+      when(() => clientMock.get(uri)).thenAnswer((_) async => throw Exception());
 
-    expect(() => sut.get(requestUrl), throwsA(isInstanceOf<Exception>()));
+      expect(() => sut.get(requestUrl), throwsA(isInstanceOf<Exception>()));
+    });
+
+    test('get SHOULD throw http request exception WHEN api response is not success', () {
+      final Response response = Response("", 400);
+      when(() => clientMock.get(uri)).thenAnswer((realInvocation) => Future.value(response));
+
+      expect(() => sut.get(requestUrl), throwsA(isInstanceOf<HttpErrorException>()));
+    });
+
+    test('get SHOULD return list of rocket dto WHEN api succeeds', () async {
+      final String body = "body";
+      final Response response = Response(body, 200);
+      when(() => clientMock.get(uri)).thenAnswer((realInvocation) => Future.value(response));
+
+      final String result = await sut.get(requestUrl);
+
+      expect(result, body);
+    });
   });
 
-  test('getRockets SHOULD throw http request exception WHEN api response is not success', () {
-    final Response response = Response("", 400);
-    when(() => clientMock.get(uri)).thenAnswer((realInvocation) => Future.value(response));
+  group("post", () {
+    const BODY = "BODY";
 
-    expect(() => sut.get(requestUrl), throwsA(isInstanceOf<HttpErrorException>()));
-  });
+    test('post SHOULD throw exception WHEN api fail with exception', () {
+      when(() => clientMock.post(uri, body: BODY)).thenAnswer((_) async => throw Exception());
 
-  test('getRockets SHOULD return list of rocket dto WHEN api succeeds', () async {
-    final String body = "body";
-    final Response response = Response(body, 200);
-    when(() => clientMock.get(uri)).thenAnswer((realInvocation) => Future.value(response));
+      expect(() => sut.post(url: requestUrl, body: BODY), throwsA(isInstanceOf<Exception>()));
+    });
 
-    final String result = await sut.get(requestUrl);
+    test('post SHOULD throw http request exception WHEN api response is not success', () {
+      final Response response = Response("", 400);
+      when(() => clientMock.post(uri, body: BODY)).thenAnswer((realInvocation) => Future.value(response));
 
-    expect(result, body);
+      expect(() => sut.post(url: requestUrl, body: BODY), throwsA(isInstanceOf<HttpErrorException>()));
+    });
+
+    test('post SHOULD return list of rocket dto WHEN api succeeds', () async {
+      final String expected = "expected";
+      final Response response = Response(expected, 200);
+      when(() => clientMock.post(uri, body: BODY)).thenAnswer((realInvocation) => Future.value(response));
+
+      final String result = await sut.post(url: requestUrl, body: BODY);
+
+      expect(result, expected);
+    });
   });
 }

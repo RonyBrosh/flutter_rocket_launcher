@@ -34,7 +34,7 @@ void main() {
       verifyZeroInteractions(rocketsApiMock);
     });
 
-    test('getRockets SHOULD return result state failure WHEN isRefresh is false  database fails', () async {
+    test('getRockets SHOULD return result state failure WHEN isRefresh is false AND database fails', () async {
       final ErrorType errorType = ErrorType.network();
       when(() => rocketsDatabaseMock.getRockets()).thenAnswer((realInvocation) => Future.value(ResultState.failure(errorType)));
 
@@ -53,6 +53,7 @@ void main() {
       final ResultState<List<Rocket>> result = await sut.getRockets(isRefresh: true);
 
       expect(result is Success, true);
+      expect((result as Success).data, rockets);
       verify(() => rocketsDatabaseMock.setRockets(rockets));
       verifyNever(() => rocketsDatabaseMock.getRockets());
     });

@@ -11,6 +11,17 @@ class HttpClient {
     final Uri uri = Uri.https(_baseUrl, url);
     final Response response = await _client.get(uri);
 
+    return _parseResponse(response);
+  }
+
+  Future<String> post({required String url, required String body}) async {
+    final Uri uri = Uri.https(_baseUrl, url);
+    final Response response = await _client.post(uri, body: body);
+
+    return _parseResponse(response);
+  }
+
+  Future<String> _parseResponse(Response response) {
     if (response.statusCode == 200) {
       return Future.value(response.body);
     } else {
