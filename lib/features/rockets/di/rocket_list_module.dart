@@ -1,6 +1,8 @@
 import 'package:flutter_rocket_launcher/core/data/mapper/error_mapper.dart';
 import 'package:flutter_rocket_launcher/core/data/network/api/http_client.dart';
 import 'package:flutter_rocket_launcher/features/rockets/data/network/api/rockets_http_client.dart';
+import 'package:flutter_rocket_launcher/features/rockets/data/network/mapper/launches_json_to_domain_list_mapper.dart';
+import 'package:flutter_rocket_launcher/features/rockets/data/network/mapper/rocket_id_to_get_launches_request_mapper.dart';
 import 'package:flutter_rocket_launcher/features/rockets/data/network/mapper/rocket_json_to_domain_list_mapper.dart';
 import 'package:flutter_rocket_launcher/features/rockets/data/repository/rockets_repository_impl.dart';
 import 'package:flutter_rocket_launcher/features/rockets/data/storage/database/rocket_launcher_database.dart';
@@ -23,8 +25,10 @@ class RocketListModule {
               "api.spacexdata.com",
               Client(),
             ),
-            RocketJsonToDomainListMapper(),
             ErrorMapper(),
+            RocketJsonToDomainListMapper(),
+            LaunchesJsonToDomainListMapper(),
+            RocketIdToGetLaunchesRequestMapper(),
           ),
           RocketsDatabaseSqflite(
             RocketLauncherDatabase.instance.getDatabase(),

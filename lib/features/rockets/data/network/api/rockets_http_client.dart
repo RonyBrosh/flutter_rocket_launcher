@@ -15,8 +15,8 @@ class RocketsHttpClient implements RocketsApi {
 
   RocketsHttpClient(
     this._httpClient,
-    this._rocketMapper,
     this._errorMapper,
+    this._rocketMapper,
     this._launchMapper,
     this._getLaunchesRequestMapper,
   );
