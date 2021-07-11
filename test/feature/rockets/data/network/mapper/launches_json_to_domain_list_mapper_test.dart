@@ -7,7 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   final LaunchesJsonToDomainListMapper sut = LaunchesJsonToDomainListMapper();
 
-  test('call SHOULD return mapped launch list WHEN inout is valid', () async {
+  test('call SHOULD return mapped launch list WHEN input is valid', () async {
     final File file = File("test_resources/json/get_launches_response_valid.json");
     final String input = await file.readAsString();
     final Launch launch = Launch.create(

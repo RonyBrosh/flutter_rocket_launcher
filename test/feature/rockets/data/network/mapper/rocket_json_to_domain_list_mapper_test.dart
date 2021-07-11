@@ -7,7 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   final RocketJsonToDomainListMapper sut = RocketJsonToDomainListMapper();
 
-  test('call SHOULD return mapped rocket list WHEN inout is valid', () async {
+  test('call SHOULD return mapped rocket list WHEN input is valid', () async {
     final File file = File("test_resources/json/get_rockets_response_valid.json");
     final String input = await file.readAsString();
     final Rocket rocket = Rocket.create(
