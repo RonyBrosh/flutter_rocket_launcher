@@ -29,8 +29,8 @@ void main() {
 
   final RocketsHttpClient sut = RocketsHttpClient(
     httpClientMock,
-    rocketMapperMock,
     errorMapperMock,
+    rocketMapperMock,
     launchMapper,
     getLaunchesRequestMapper,
   );
