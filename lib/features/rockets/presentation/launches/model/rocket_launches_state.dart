@@ -42,4 +42,12 @@ class Error extends RocketLaunchesState {
   Error._(this.errorType) : super._();
 
   final ErrorType errorType;
+
+  @override
+  bool operator ==(other) {
+    return other is Error && errorType == other.errorType;
+  }
+
+  @override
+  int get hashCode => errorType.hashCode;
 }

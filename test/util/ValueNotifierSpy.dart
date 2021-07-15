@@ -31,6 +31,14 @@ class ValueNotifierSpy {
     _dispose();
   }
 
+  void assertAtIndex(int index, dynamic expected) {
+    expect(
+      _values.elementAt(index),
+      expected,
+      reason: "Assert at index failed for index $index:\nactualValues = ${_values.elementAt(index)}\nexpectedValues = $expected",
+    );
+  }
+
   void _dispose() {
     _valueNotifier.removeListener(_addCurrentValue);
   }

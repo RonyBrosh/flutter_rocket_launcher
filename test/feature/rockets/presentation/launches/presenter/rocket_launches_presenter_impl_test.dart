@@ -14,6 +14,8 @@ class LaunchListMock extends Mock implements List<Launch> {}
 
 class GetLaunchesUseCaseMock extends Mock implements GetLaunchesUseCase {}
 
+class ErrorTypeMock extends Mock implements ErrorType {}
+
 void main() {
   const ROCKET_ID = "ROCKET_ID";
 
@@ -51,9 +53,7 @@ void main() {
         sut.loadLaunches(ROCKET_ID);
 
         async.flushMicrotasks();
-        valueNotifierSpy.assertOrdered([
-          RocketLaunchesState.loading(),
-        ]);
+        valueNotifierSpy.assertAtIndex(0, RocketLaunchesState.loading());
         verify(() => getLaunchesUseCaseMock(ROCKET_ID, isRefresh: true));
       });
     });
@@ -67,17 +67,48 @@ void main() {
         sut.loadLaunches(ROCKET_ID);
 
         async.flushMicrotasks();
-        valueNotifierSpy.assertOrdered([
-          RocketLaunchesState.loading(),
-        ]);
+        valueNotifierSpy.assertAtIndex(0, RocketLaunchesState.loading());
         verify(() => getLaunchesUseCaseMock(ROCKET_ID, isRefresh: true));
       });
     });
   });
 
   group("refreshLaunches", () {
-    test("refreshLaunches SHOULD emit empty Content AND Loading AND Content WHEN use case succeeds", () {});
+    test("refreshLaunches SHOULD emit empty Content AND Loading AND Content WHEN use case succeeds", () {
+      final List<Launch> launches = LaunchListMock();
+      final ValueNotifierSpy valueNotifierSpy = ValueNotifierSpy(sut.rocketLaunchesState);
 
-    test("refreshLaunches SHOULD emit empty Content AND Loading AND Error WHEN use case fails", () {});
+      when(() => getLaunchesUseCaseMock(ROCKET_ID, isRefresh: true)).thenAnswer((invocation) => Future.value(ResultState.success(launches)));
+
+      fakeAsync((async) {
+        sut.refreshLaunches(ROCKET_ID);
+
+        async.flushMicrotasks();
+        valueNotifierSpy.assertOrdered([
+          RocketLaunchesState.loading(),
+          RocketLaunchesState.content(List.empty()),
+          RocketLaunchesState.loading(),
+          RocketLaunchesState.content(launches),
+        ]);
+      });
+    });
+
+    test("refreshLaunches SHOULD emit empty Content AND Loading AND Error WHEN use case fails", () {
+      final ErrorType error = ErrorTypeMock();
+      final ValueNotifierSpy valueNotifierSpy = ValueNotifierSpy(sut.rocketLaunchesState);
+      when(() => getLaunchesUseCaseMock(ROCKET_ID, isRefresh: true)).thenAnswer((invocation) => Future.value(ResultState.failure(error)));
+
+      fakeAsync((async) {
+        sut.refreshLaunches(ROCKET_ID);
+
+        async.flushMicrotasks();
+        valueNotifierSpy.assertOrdered([
+          RocketLaunchesState.loading(),
+          RocketLaunchesState.content(List.empty()),
+          RocketLaunchesState.loading(),
+          RocketLaunchesState.error(error),
+        ]);
+      });
+    });
   });
 }

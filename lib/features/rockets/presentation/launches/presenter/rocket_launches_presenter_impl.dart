@@ -31,6 +31,15 @@ class RocketLaunchesPresenterImpl implements RocketLaunchesPresenter {
 
   @override
   void refreshLaunches(String rocketId) {
-    _getLaunchesUseCase(rocketId, isRefresh: true);
+    _rocketLaunchesState.value = RocketLaunchesState.content(List.empty());
+    _rocketLaunchesState.value = RocketLaunchesState.loading();
+    _getLaunchesUseCase(rocketId, isRefresh: true).then((resultState) => resultState.fold(
+          success: (launches) {
+            _rocketLaunchesState.value = RocketLaunchesState.content(launches);
+          },
+          failure: (error) {
+            _rocketLaunchesState.value = RocketLaunchesState.error(error);
+          },
+        ));
   }
 }
