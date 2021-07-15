@@ -21,7 +21,6 @@ class GetLaunchesRequestMapperMock extends Mock implements Mapper<String, String
 class LaunchMock extends Mock implements Launch {}
 
 void main() {
-
   final HttpClientMock httpClientMock = HttpClientMock();
   final RocketMapperMock rocketMapperMock = RocketMapperMock();
   final ErrorMapperMock errorMapperMock = ErrorMapperMock();
