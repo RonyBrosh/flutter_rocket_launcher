@@ -4,12 +4,9 @@ import 'package:flutter_rocket_launcher/features/rockets/presentation/launches/m
 abstract class RocketLaunchesPresenter {
   RocketLaunchesPresenter._();
 
-
-
-
   ValueNotifier<RocketLaunchesState> get rocketLaunchesState;
 
-  void loadLaunches();
+  void loadLaunches(String rocketId);
 
-  void refreshLaunches();
+  void refreshLaunches(String rocketId);
 }
