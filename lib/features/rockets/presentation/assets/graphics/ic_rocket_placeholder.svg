@@ -1,0 +1,23 @@
+<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+
+ <g>
+  <title>Layer 1</title>
+  <g opacity="0.2" transform="rotate(45 110 112.5)" id="rocket">
+   <g id="body_left">
+    <path stroke-linejoin="round" stroke-linecap="round" stroke-width="3" fill="#8516ff" d="m90,150c-10,0 -20,10 -20,10m0,0c-10,-20 10,-40 15,-50l5,40" id="wing"/>
+    <path stroke-linejoin="round" stroke-linecap="round" stroke-width="3" stroke="#ff6ad4" fill="#ff6ad4" d="m104,155l-14,-5c0,0 -20,-110 20,-135l0,140" id="body"/>
+   </g>
+   <g id="body_right">
+    <path stroke-linejoin="round" stroke-linecap="round" stroke-width="3" fill="#8516ff" d="m130,150c10,0 20,10 20,10m0,0c10,-20 -10,-40 -15,-50l-5,40" id="wing_1"/>
+    <path stroke-linejoin="round" stroke-linecap="round" stroke-width="3" stroke="#ff6ad4" fill="#ff6ad4" d="m116,155l14,-5c0,0 20,-110 -20,-135l0,140" id="body_1"/>
+   </g>
+   <path stroke-linejoin="round" stroke-linecap="round" stroke-width="3" fill="#b388ff" d="m104,160l0,-25c0,-10 12,-10 12,0l0,25c0,10 -12,10 -12,0" id="engine"/>
+   <path stroke-linejoin="round" stroke-linecap="round" stroke-width="3" fill="#b388ff" d="m100,60c0,-15 20,-15 20,0m-20,0c0,15 20,15 20,0" id="window"/>
+   <g id="flames">
+    <path stroke-linejoin="round" stroke-linecap="round" stroke-width="4" stroke="#ffabe7" fill="none" d="m90,165l0,25" id="left_flame"/>
+    <path stroke-linejoin="round" stroke-linecap="round" stroke-width="4" stroke="#ffabe7" fill="none" d="m130,165l0,25" id="right_flame"/>
+    <path stroke-linejoin="round" stroke-linecap="round" stroke-width="5" stroke="#b388ff" fill="none" d="m110,180l0,30" id="center_flame"/>
+   </g>
+  </g>
+ </g>
+</svg>

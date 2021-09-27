@@ -34,6 +34,7 @@ flutter:
 
   assets:
     - lib/features/splash/presentation/assets/graphics/
+    - lib/features/rockets/presentation/assets/graphics/
 
   fonts:
     - family: RocketLauncher
