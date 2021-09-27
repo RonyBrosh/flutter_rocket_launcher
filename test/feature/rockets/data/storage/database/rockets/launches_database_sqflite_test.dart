@@ -47,7 +47,7 @@ void main() async {
       final List<Launch> launches = List.filled(1, Launch.create(id: "id"));
       final row = {
         LaunchesDatabaseSqflite.COLUMN_ID: "id",
-        LaunchesDatabaseSqflite.COLUMN_ROCKET_ID: "rocketId",
+        LaunchesDatabaseSqflite.COLUMN_ROCKET_ID: ROCKET_ID,
         LaunchesDatabaseSqflite.COLUMN_NAME: "name",
         LaunchesDatabaseSqflite.COLUMN_IMAGE_URL: "imageUrl",
         LaunchesDatabaseSqflite.COLUMN_DATE: 0,

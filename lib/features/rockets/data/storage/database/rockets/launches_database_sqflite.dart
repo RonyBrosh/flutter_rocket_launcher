@@ -39,7 +39,11 @@ class LaunchesDatabaseSqflite implements LaunchesDatabase {
   Future<ResultState<List<Launch>>> getLaunches(String rocketId) async {
     try {
       Database database = await _database;
-      List<Map<String, Object?>> table = await database.query(TABLE_NAME);
+      List<Map<String, Object?>> table = await database.query(
+        TABLE_NAME,
+        where: "$COLUMN_ROCKET_ID=?",
+        whereArgs: [rocketId],
+      );
       List<Launch> rockets = _tableToLaunchesMapper(table);
       return ResultState.success(rockets);
     } on Exception catch (exception) {

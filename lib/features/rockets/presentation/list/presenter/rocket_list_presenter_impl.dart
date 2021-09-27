@@ -41,7 +41,6 @@ class RocketListPresenterImpl implements RocketListPresenter {
   @override
   void refreshRockets() {
     _content.clear();
-    _rocketListState.value = RocketListState.content(_content.toList());
     _rocketListState.value = RocketListState.loading();
     _getRocketsUseCase(isRefresh: true).then((resultState) {
       resultState.fold(

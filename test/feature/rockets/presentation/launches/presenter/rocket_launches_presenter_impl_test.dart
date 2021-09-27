@@ -74,7 +74,7 @@ void main() {
   });
 
   group("refreshLaunches", () {
-    test("refreshLaunches SHOULD emit empty Content AND Loading AND Content WHEN use case succeeds", () {
+    test("refreshLaunches SHOULD emit Loading AND Content WHEN use case succeeds", () {
       final List<Launch> launches = LaunchListMock();
       final ValueNotifierSpy valueNotifierSpy = ValueNotifierSpy(sut.rocketLaunchesState);
 
@@ -86,14 +86,12 @@ void main() {
         async.flushMicrotasks();
         valueNotifierSpy.assertOrdered([
           RocketLaunchesState.loading(),
-          RocketLaunchesState.content(List.empty()),
-          RocketLaunchesState.loading(),
           RocketLaunchesState.content(launches),
         ]);
       });
     });
 
-    test("refreshLaunches SHOULD emit empty Content AND Loading AND Error WHEN use case fails", () {
+    test("refreshLaunches SHOULD emit Loading AND Error WHEN use case fails", () {
       final ErrorType error = ErrorTypeMock();
       final ValueNotifierSpy valueNotifierSpy = ValueNotifierSpy(sut.rocketLaunchesState);
       when(() => getLaunchesUseCaseMock(ROCKET_ID, isRefresh: true)).thenAnswer((invocation) => Future.value(ResultState.failure(error)));
@@ -103,8 +101,6 @@ void main() {
 
         async.flushMicrotasks();
         valueNotifierSpy.assertOrdered([
-          RocketLaunchesState.loading(),
-          RocketLaunchesState.content(List.empty()),
           RocketLaunchesState.loading(),
           RocketLaunchesState.error(error),
         ]);

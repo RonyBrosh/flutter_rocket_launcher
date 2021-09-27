@@ -1,5 +1,6 @@
 import 'package:flutter_rocket_launcher/core/data/mapper/error_mapper.dart';
 import 'package:flutter_rocket_launcher/core/data/network/api/http_client.dart';
+import 'package:flutter_rocket_launcher/core/presentation/router/router_service_locator.dart';
 import 'package:flutter_rocket_launcher/features/rockets/data/network/api/rockets_http_client.dart';
 import 'package:flutter_rocket_launcher/features/rockets/data/network/mapper/launches_json_to_domain_list_mapper.dart';
 import 'package:flutter_rocket_launcher/features/rockets/data/network/mapper/rocket_id_to_get_launches_request_mapper.dart';
@@ -38,7 +39,7 @@ class RocketListModule {
           ),
         ),
       ),
-      RocketListRouterImpl(),
+      RocketListRouterImpl(RouterServiceLocator.getInstance().navigatorKey.currentState!),
     );
   }
 }

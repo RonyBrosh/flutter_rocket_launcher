@@ -1,7 +1,7 @@
 import 'package:flutter_rocket_launcher/features/rockets/presentation/assets/strings/strings.dart';
 
 class RocketsStringsEnglish implements RocketsStrings {
-  //region List
+  //region Rocket list
   @override
   String get listTitle => "Rocket Launcher";
 
@@ -11,6 +11,13 @@ class RocketsStringsEnglish implements RocketsStrings {
   @override
   String get listItemActive => "Rocket is active";
 
-//endregion
+  //endregion
 
+  //region Rocket launches
+  @override
+  String get launchSuccessful => "Successful launch";
+
+  @override
+  String get launchUnSuccessful => "Launch failed...";
+  //endregion
 }

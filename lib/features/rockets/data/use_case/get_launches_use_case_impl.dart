@@ -10,6 +10,6 @@ class GetLaunchesUseCaseImpl implements GetLaunchesUseCase {
 
   @override
   Future<ResultState<List<Launch>>> call(String rocketId, {bool isRefresh = false}) {
-    return _launchesRepository.getLaunches(rocketId);
+    return _launchesRepository.getLaunches(rocketId, isRefresh: isRefresh);
   }
 }

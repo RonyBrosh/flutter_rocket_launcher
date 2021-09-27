@@ -1,3 +1,4 @@
+import 'package:flutter_rocket_launcher/features/rockets/data/storage/database/rockets/launches_database_sqflite.dart';
 import 'package:flutter_rocket_launcher/features/rockets/data/storage/database/rockets/rockets_database_sqflite.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -32,6 +33,7 @@ class RocketLauncherDatabase {
   }
 
   Future _createDatabase(Database database, int version) async {
-    database.execute(RocketsDatabaseSqflite.CREATE_TABLE);
+    await database.execute(RocketsDatabaseSqflite.CREATE_TABLE);
+    await database.execute(LaunchesDatabaseSqflite.CREATE_TABLE);
   }
 }

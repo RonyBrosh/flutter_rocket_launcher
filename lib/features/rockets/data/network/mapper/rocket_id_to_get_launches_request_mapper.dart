@@ -9,6 +9,9 @@ class RocketIdToGetLaunchesRequestMapper implements Mapper<String, String> {
       "query": <String, dynamic>{
         "rocket": input,
       },
+      "options": {
+        "limit": 200,
+      },
     };
 
     return json.encode(request);
