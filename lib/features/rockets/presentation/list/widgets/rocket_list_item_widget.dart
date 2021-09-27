@@ -24,7 +24,7 @@ class RocketListItemWidget extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            AspectRatio(aspectRatio: 3 / 2, child: Image.network(_rocket.imageUrl, fit: BoxFit.fill)),
+            AspectRatio(aspectRatio: 3 / 2, child: Image.network(_rocket.imageUrl, fit: BoxFit.cover)),
             Padding(
               padding: const EdgeInsets.only(left: SPACE_SMALL, right: SPACE_SMALL, top: SPACE_SMALL),
               child: Row(

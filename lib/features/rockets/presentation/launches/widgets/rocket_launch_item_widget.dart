@@ -12,7 +12,7 @@ class RocketLaunchItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Image.network(_launch.imageUrl, fit: BoxFit.fill),
+      leading: Image.network(_launch.imageUrl, fit: BoxFit.contain),
       title: TextTitle(_launch.name),
       subtitle: TextCaption(
           "${_launch.isSuccessful ? RocketsResources(context).strings.launchSuccessful : RocketsResources(context).strings.launchUnSuccessful}"),
