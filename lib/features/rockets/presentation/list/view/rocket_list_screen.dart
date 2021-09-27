@@ -19,10 +19,14 @@ class RocketListScreen extends StatelessWidget {
         title: TextAppBAr(RocketsResources.from(context).strings.listTitle),
         actions: [FilterWidget(_rocketListPresenter.toggleFilter)],
       ),
-      body: RocketListStateWidget(
-        _rocketListPresenter.rocketListState,
-        _rocketListPresenter.refreshRockets,
-        _rocketListPresenter.onRocketClicked,
+      body: RefreshIndicator(
+        onRefresh: () async {
+          _rocketListPresenter.refreshRockets();
+        },
+        child: RocketListStateWidget(
+          _rocketListPresenter.rocketListState,
+          _rocketListPresenter.onRocketClicked,
+        ),
       ),
     );
   }

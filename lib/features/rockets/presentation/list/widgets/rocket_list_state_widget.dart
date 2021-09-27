@@ -7,10 +7,9 @@ import 'package:flutter_rocket_launcher/features/rockets/presentation/list/widge
 
 class RocketListStateWidget extends StatelessWidget {
   final ValueNotifier<RocketListState> _state;
-  final Function() _onRefreshRockets;
   final Function(Rocket) _onRocketClicked;
 
-  RocketListStateWidget(this._state, this._onRefreshRockets, this._onRocketClicked);
+  RocketListStateWidget(this._state, this._onRocketClicked);
 
   @override
   Widget build(BuildContext context) {
@@ -29,18 +28,13 @@ class RocketListStateWidget extends StatelessWidget {
   }
 
   Widget _createContentView(List<Rocket> rockets) {
-    return RefreshIndicator(
-      child: ListView.builder(
-          physics: const AlwaysScrollableScrollPhysics(),
-          padding: EdgeInsets.symmetric(horizontal: SPACE_BASE, vertical: SPACE_SMALL),
-          itemCount: rockets.length,
-          itemBuilder: (context, index) {
-            return RocketListItemWidget(rockets[index], _onRocketClicked);
-          }),
-      onRefresh: () async {
-        _onRefreshRockets();
-      },
-    );
+    return ListView.builder(
+        physics: const AlwaysScrollableScrollPhysics(),
+        padding: EdgeInsets.symmetric(horizontal: SPACE_BASE, vertical: SPACE_SMALL),
+        itemCount: rockets.length,
+        itemBuilder: (context, index) {
+          return RocketListItemWidget(rockets[index], _onRocketClicked);
+        });
   }
 
   Widget _createLoadingView() {
