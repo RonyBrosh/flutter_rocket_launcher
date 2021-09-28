@@ -17,5 +17,7 @@ abstract class RocketsStrings {
   String get launchesPerYear;
 
   String get noLaunchesFound;
+
+  String get explore;
 //endregion
 }

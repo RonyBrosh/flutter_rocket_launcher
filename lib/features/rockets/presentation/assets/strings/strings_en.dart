@@ -25,5 +25,8 @@ class RocketsStringsEnglish implements RocketsStrings {
 
   @override
   String get noLaunchesFound => "No launches found...";
+
+  @override
+  String get explore => "Explore";
   //endregion
 }

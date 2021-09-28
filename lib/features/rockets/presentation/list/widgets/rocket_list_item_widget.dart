@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rocket_launcher/core/presentation/dimens/space.dart';
+import 'package:flutter_rocket_launcher/core/presentation/widgets/expandable_widget.dart';
 import 'package:flutter_rocket_launcher/core/presentation/widgets/loadable_image.dart';
 import 'package:flutter_rocket_launcher/core/presentation/widgets/text/text_caption.dart';
 import 'package:flutter_rocket_launcher/core/presentation/widgets/text/text_subtitle.dart';
@@ -19,11 +20,8 @@ class RocketListItemWidget extends StatelessWidget {
     return Card(
       clipBehavior: Clip.antiAliasWithSaveLayer,
       margin: EdgeInsets.only(top: SPACE_SMALL, bottom: SPACE_SMALL),
-      child: InkWell(
-        onTap: () {
-          _onRocketClicked(_rocket);
-        },
-        child: Column(
+      child: ExpandableWidget(
+        parent: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Hero(
@@ -50,7 +48,28 @@ class RocketListItemWidget extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.all(SPACE_SMALL),
-              child: TextCaption("${RocketsResources.from(context).strings.listItemEnginesCount}${_rocket.enginesCount}"),
+              child:
+                  TextCaption("${RocketsResources.from(context).strings.listItemEnginesCount}${_rocket.enginesCount}"),
+            ),
+          ],
+        ),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(SPACE_SMALL),
+              child: TextSubtitle(_rocket.description),
+            ),
+            Align(
+              alignment: Alignment.bottomRight,
+              child: Padding(
+                padding: const EdgeInsets.only(right: SPACE_TINY),
+                child: TextButton(
+                  child: Text(RocketsResources.from(context).strings.explore.toUpperCase()),
+                  onPressed: () {
+                    _onRocketClicked(_rocket);
+                  },
+                ),
+              ),
             ),
           ],
         ),
