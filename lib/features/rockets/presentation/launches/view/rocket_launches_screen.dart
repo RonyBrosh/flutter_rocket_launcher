@@ -25,16 +25,23 @@ class RocketLaunchesScreen extends StatelessWidget {
       controller: scrollController,
       headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
         return [
-          SliverAppBar(
-            iconTheme: IconThemeData(color: Colors.white),
-            pinned: true,
-            expandedHeight: (screenSize.width * 2 / 3),
-            flexibleSpace: FlexibleSpaceBar(
-              background: AspectRatio(aspectRatio: 3 / 2, child: Image.network(_rocket.imageUrl, fit: BoxFit.cover)),
-              title: OpacityWidget(
-                scrollController: scrollController,
-                child: TextAppBAr(_rocket.name),
-                isStartVisible: false,
+          SliverOverlapAbsorber(
+            handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+            sliver: SliverSafeArea(
+              top: false,
+              sliver: SliverAppBar(
+                iconTheme: IconThemeData(color: Colors.white),
+                pinned: true,
+                expandedHeight: (screenSize.width * 2 / 3),
+                flexibleSpace: FlexibleSpaceBar(
+                  background:
+                      AspectRatio(aspectRatio: 3 / 2, child: Image.network(_rocket.imageUrl, fit: BoxFit.cover)),
+                  title: OpacityWidget(
+                    scrollController: scrollController,
+                    child: TextAppBAr(_rocket.name),
+                    isStartVisible: false,
+                  ),
+                ),
               ),
             ),
           ),
