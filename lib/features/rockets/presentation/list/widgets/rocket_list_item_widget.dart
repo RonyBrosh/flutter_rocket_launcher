@@ -26,12 +26,15 @@ class RocketListItemWidget extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            AspectRatio(
-                aspectRatio: 3 / 2,
-                child: LoadableImage(
-                  imageUrl: _rocket.imageUrl,
-                  fallbackAsset: RocketsAssets.ROCKET_PLACEHOLDER,
-                )),
+            Hero(
+              tag: _rocket.imageUrl,
+              child: AspectRatio(
+                  aspectRatio: 3 / 2,
+                  child: LoadableImage(
+                    imageUrl: _rocket.imageUrl,
+                    fallbackAsset: RocketsAssets.ROCKET_PLACEHOLDER,
+                  )),
+            ),
             Padding(
               padding: const EdgeInsets.only(left: SPACE_SMALL, right: SPACE_SMALL, top: SPACE_SMALL),
               child: Row(

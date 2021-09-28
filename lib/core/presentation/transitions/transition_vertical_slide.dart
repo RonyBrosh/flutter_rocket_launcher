@@ -12,4 +12,11 @@ class ScreenTransition {
       child: child,
     );
   }
+
+  static Widget fadeTransition(Animation<double> animation, Widget child) {
+    return FadeTransition(
+      opacity: animation,
+      child: child,
+    );
+  }
 }

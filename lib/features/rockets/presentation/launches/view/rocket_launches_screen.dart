@@ -35,8 +35,15 @@ class RocketLaunchesScreen extends StatelessWidget {
                 pinned: true,
                 expandedHeight: (screenSize.width * 2 / 3),
                 flexibleSpace: FlexibleSpaceBar(
-                  background:
-                      AspectRatio(aspectRatio: 3 / 2, child: Image.network(_rocket.imageUrl, fit: BoxFit.cover)),
+                  background: Hero(
+                    tag: _rocket.imageUrl,
+                    child: AspectRatio(
+                        aspectRatio: 3 / 2,
+                        child: Image.network(
+                          _rocket.imageUrl,
+                          fit: BoxFit.cover,
+                        )),
+                  ),
                   title: OpacityWidget(
                     scrollController: scrollController,
                     child: TextAppBAr(_rocket.name),

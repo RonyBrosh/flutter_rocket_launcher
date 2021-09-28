@@ -35,7 +35,7 @@ class RocketsRoutes extends FeatureRoutes {
             settings.arguments as Rocket,
           ),
           transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-              ScreenTransition.verticalSlideTransition(animation, child),
+              ScreenTransition.fadeTransition(animation, child),
         );
       default:
         return generateDefaultRoute(settings);
