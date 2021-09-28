@@ -19,5 +19,8 @@ class RocketsStringsEnglish implements RocketsStrings {
 
   @override
   String get launchUnSuccessful => "Launch failed...";
+
+  @override
+  String get launchesPerYear => "Launches per Year";
   //endregion
 }
