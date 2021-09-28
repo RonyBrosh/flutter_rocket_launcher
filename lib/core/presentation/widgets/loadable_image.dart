@@ -24,7 +24,7 @@ class LoadableImage extends StatelessWidget {
       if (loadingProgress == null) {
         return child;
       }
-      return CircularProgressIndicator();
+      return Center(child: CircularProgressIndicator());
     }, errorBuilder: (
       BuildContext context,
       Object error,
