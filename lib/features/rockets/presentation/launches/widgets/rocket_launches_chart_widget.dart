@@ -2,12 +2,19 @@ import 'package:charts_flutter/flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_rocket_launcher/core/presentation/dimens/space.dart';
 import 'package:flutter_rocket_launcher/core/presentation/widgets/text/text_title.dart';
+import 'package:flutter_rocket_launcher/core/util/mapper/mapper.dart';
+import 'package:flutter_rocket_launcher/features/rockets/domain/model/launch.dart';
 import 'package:flutter_rocket_launcher/features/rockets/presentation/assets/rockets_resources.dart';
+import 'package:flutter_rocket_launcher/features/rockets/presentation/launches/mapper/launch_to_launch_chart_item_mapper.dart';
+import 'package:flutter_rocket_launcher/features/rockets/presentation/launches/model/launch_chart_item.dart';
 
 class LaunchesChartWidget extends StatelessWidget {
-  LaunchesChartWidget({Key? key}) : super(key: key);
+  final List<Series<LaunchChartItem, String>> _data = List.empty(growable: true);
+  final Mapper<List<Launch>, List<Series<LaunchChartItem, String>>> _dataMapper = LaunchToLaunchChartItemMapper();
 
-  final List<Series<OrdinalSales, String>> seriesList = _createSampleData();
+  LaunchesChartWidget({required List<Launch> launches, Key? key}) : super(key: key) {
+    _data.addAll(_dataMapper(launches));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,38 +33,11 @@ class LaunchesChartWidget extends StatelessWidget {
                 bottom: SPACE_BASE,
               ),
               child: BarChart(
-                seriesList,
+                _data,
                 animate: true,
               ),
             )),
       ],
     );
   }
-
-  static List<Series<OrdinalSales, String>> _createSampleData() {
-    final data = [
-      new OrdinalSales('2017', 75),
-      new OrdinalSales('2014', 5),
-      new OrdinalSales('2015', 25),
-      new OrdinalSales('2016', 100),
-
-    ];
-
-    return [
-      new Series<OrdinalSales, String>(
-        id: 'Sales',
-        colorFn: (_, __) => MaterialPalette.blue.shadeDefault,
-        domainFn: (OrdinalSales sales, _) => sales.year,
-        measureFn: (OrdinalSales sales, _) => sales.sales,
-        data: data,
-      )
-    ];
-  }
-}
-
-class OrdinalSales {
-  final String year;
-  final int sales;
-
-  OrdinalSales(this.year, this.sales);
 }

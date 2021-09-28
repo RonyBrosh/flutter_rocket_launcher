@@ -55,7 +55,7 @@ class RocketLaunchesScreen extends StatelessWidget {
           valueListenable: _presenter.rocketLaunchesState,
           builder: (BuildContext context, RocketLaunchesState state, Widget? child) {
             if (state is Content) {
-              return RocketLaunchesContentWidget(launches: state.launches);
+              return RocketLaunchesContentWidget(state.launches);
             } else if (state is Error) {
               return Text("Error:${state.errorType}");
             } else {
