@@ -35,6 +35,7 @@ class LaunchesChartWidget extends StatelessWidget {
               child: BarChart(
                 _data,
                 animate: true,
+                barRendererDecorator: BarLabelDecorator<String>(labelPosition: BarLabelPosition.outside),
                 domainAxis: OrdinalAxisSpec(
                   renderSpec: SmallTickRendererSpec(labelRotation: 60),
                 ),

@@ -31,6 +31,7 @@ class LaunchToLaunchChartItemMapper implements Mapper<List<Launch>, List<charts.
         domainFn: (LaunchChartItem item, _) => "${item.year}",
         measureFn: (LaunchChartItem item, _) => item.count,
         colorFn: (LaunchChartItem item, _) => item.colour,
+        labelAccessorFn: (LaunchChartItem item, _) => "${item.count}",
       )
     ];
   }
