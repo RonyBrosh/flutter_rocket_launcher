@@ -22,5 +22,8 @@ class RocketsStringsEnglish implements RocketsStrings {
 
   @override
   String get launchesPerYear => "Launches per Year";
+
+  @override
+  String get noLaunchesFound => "No launches found...";
   //endregion
 }

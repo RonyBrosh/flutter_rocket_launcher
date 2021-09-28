@@ -6,6 +6,7 @@ import 'package:flutter_rocket_launcher/features/rockets/domain/model/rocket.dar
 import 'package:flutter_rocket_launcher/features/rockets/presentation/launches/model/rocket_launches_state.dart';
 import 'package:flutter_rocket_launcher/features/rockets/presentation/launches/presenter/rocket_launches_presenter.dart';
 import 'package:flutter_rocket_launcher/features/rockets/presentation/launches/widgets/rocket_launches_content_widget.dart';
+import 'package:flutter_rocket_launcher/features/rockets/presentation/launches/widgets/rocket_launches_empty_state_widget.dart';
 
 class RocketLaunchesScreen extends StatelessWidget {
   final RocketLaunchesPresenter _presenter;
@@ -55,7 +56,11 @@ class RocketLaunchesScreen extends StatelessWidget {
           valueListenable: _presenter.rocketLaunchesState,
           builder: (BuildContext context, RocketLaunchesState state, Widget? child) {
             if (state is Content) {
-              return RocketLaunchesContentWidget(state.launches);
+              if (state.launches.isEmpty) {
+                return RocketLaunchesEmptyState();
+              } else {
+                return RocketLaunchesContentWidget(state.launches);
+              }
             } else if (state is Error) {
               return Text("Error:${state.errorType}");
             } else {
