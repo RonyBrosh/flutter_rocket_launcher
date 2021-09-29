@@ -10,6 +10,6 @@
     </item>
 
     <item
-        android:drawable="@drawable/ic_rocket_icon_with_flames"
+        android:drawable="@mipmap/ic_launcher"
         android:gravity="center" />
 </layer-list>
