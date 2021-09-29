@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_rocket_launcher/core/presentation/widgets/opacity_widget.dart';
 import 'package:flutter_rocket_launcher/core/presentation/widgets/text/text_app_bar.dart';
@@ -19,6 +20,7 @@ class RocketLaunchesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
     final screenSize = MediaQuery.of(context).size;
 
     return Scaffold(

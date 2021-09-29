@@ -9,11 +9,12 @@ import 'package:flutter_rocket_launcher/features/splash/presentation/splash_scre
 class SplashScreen extends StatefulWidget {
   final SplashScreenPresenter _splashScreenPresenter;
 
-  SplashScreen(this._splashScreenPresenter);
+  SplashScreen(this._splashScreenPresenter) {
+    SystemChrome.setEnabledSystemUIOverlays([]);
+  }
 
   @override
   State<StatefulWidget> createState() {
-    SystemChrome.setEnabledSystemUIOverlays([]);
     return _SplashScreenState();
   }
 }
