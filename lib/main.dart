@@ -13,6 +13,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
+
   await precachePicture(ExactAssetPicture(SvgPicture.svgStringDecoder, SplashAssets.SPLASH_ROCKET), null);
 
   if (Foundation.kDebugMode) {

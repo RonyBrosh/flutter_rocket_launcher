@@ -20,7 +20,6 @@ class RocketLaunchesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
     final screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -52,6 +51,10 @@ class RocketLaunchesScreen extends StatelessWidget {
                     isStartVisible: false,
                   ),
                 ),
+                systemOverlayStyle: SystemUiOverlayStyle(
+                  statusBarIconBrightness: Brightness.light,
+                ),
+                backwardsCompatibility: false,
               ),
             ),
           ),
