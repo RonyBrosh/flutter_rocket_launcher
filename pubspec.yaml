@@ -19,7 +19,10 @@ dependencies:
   rive: ^0.7.4
   sqflite:
   path:
-  charts_flutter: ^0.11.0
+  charts_flutter:
+    git:
+      url: git://github.com/google/charts.git
+      path: charts_flutter
 
 dev_dependencies:
   flutter_test:
