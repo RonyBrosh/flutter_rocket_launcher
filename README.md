@@ -3,6 +3,8 @@
 A playground app for experimenting with clean architecture principles and Flutter.  
 Check these demo videos for both Android and iOS.
 
+Fancy an interactive web demo?
+[Click this link](https://htmlpreview.github.io/?https://github.com/RonyBrosh/FlutterRocketLauncher/blob/master/flutter_rocket_launcher_web_demo.html)
 
 https://user-images.githubusercontent.com/63312304/135687274-2ddf2859-639a-4b9c-9c16-d30d5a047c1d.mp4
 
