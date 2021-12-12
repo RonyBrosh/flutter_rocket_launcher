@@ -2,8 +2,6 @@ name: "Run all tests"
 description: "Run all tests"
 author: "ronybrosh@github.com"
 
-inputs:
-
 runs:
   using: "docker"
   image: "Dockerfile"
