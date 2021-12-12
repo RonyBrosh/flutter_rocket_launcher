@@ -16,7 +16,7 @@ jobs:
       - name: Run tests
         run: "flutter test"
       - name: Build Android apk
-        run: flutter build apk
+        run: flutter build apk --build-number=$GITHUB_RUN_NUMBER
       - name: Upload APK 
         uses: wzieba/Firebase-Distribution-Github-Action@v1.2.1
         with:
