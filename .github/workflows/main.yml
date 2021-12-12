@@ -3,7 +3,7 @@ on: push
 jobs:
   test_and_upload:
     name: Test and upload to Firebase
-    runs-on: macOS-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout the code
         uses: actions/checkout@v1
