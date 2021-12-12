@@ -1,8 +1,8 @@
-name: A workflow for feature branches
+name: Build and test
 on: push
 jobs:
   build:
-    name: Run all tests action
+    name: Run all tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
