@@ -5,9 +5,9 @@ jobs:
     name: Run all tests
     runs-on: ubuntu-latest
     steps:
-      - uses: ./actions/run_tests
       - name: Checkout the code
         uses: actions/checkout@v1
+      - uses: ./actions/run_tests
       - name: Install and set Flutter version
         uses: subosito/flutter-action@v1.4.0
         with:
