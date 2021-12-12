@@ -1,9 +1,9 @@
-name: Build and test
+name: Test and upload
 on: push
 jobs:
-  run_tests:
-    name: Run all tests
-    runs-on: macOS-latest
+  test_and_upload:
+    name: Test and upload to Firebase
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout the code
         uses: actions/checkout@v1
@@ -15,3 +15,12 @@ jobs:
         run: "flutter pub get"
       - name: Run tests
         run: "flutter test"
+      - name: Build Android apk
+        run: flutter build apk
+      - name: Upload APK 
+        uses: wzieba/Firebase-Distribution-Github-Action@v1.2.1
+        with:
+          appId: ${{ secrets.FIREBASE_APP_ID }}
+          token: ${{ secrets.FIREBASE_TOKEN }}
+          groups: my_testers
+          file: build/app/outputs/flutter-apk/app-release.apk
