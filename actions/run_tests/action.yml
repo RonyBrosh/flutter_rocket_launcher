@@ -1,0 +1,11 @@
+name: "Run all tests"
+description: "Run all tests"
+author: "ronybrosh@github.com"
+
+runs:
+  using: "docker"
+  image: "Dockerfile"
+
+branding:
+  icon: "git-pull-request"
+  color: "blue"
