@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Install Firebase tools
-        run: npm install -g firebase-tools \ firebase init
+        run: curl -sL firebase.tools | bash
       - name: Checkout the code
         uses: actions/checkout@v1
       - name: Install and set Flutter version
@@ -20,4 +20,4 @@ jobs:
       - name: Build Android apk
         run: flutter build apk --build-number=$GITHUB_RUN_NUMBER
       - name: Upload APK to Firebase
-        run: firebase appdistribution:distribute build/app/outputs/flutter-apk/app-release.apk --app ${{ secrets.FIREBASE_APP_ID }} --groups my_testers
+        run: firebase appdistribution:distribute build/app/outputs/flutter-apk/app-release.apk --token ${{ secrets.FIREBASE_TOKEN }} --app ${{ secrets.FIREBASE_APP_ID }} --groups my_testers
