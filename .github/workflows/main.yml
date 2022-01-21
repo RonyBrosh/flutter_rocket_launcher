@@ -16,7 +16,10 @@ jobs:
       - name: Run tests
         run: "flutter test"
       - name: Danger zone
-        run: bundle install | bundle exec danger
+        run: |
+        cd danger 
+        bundle install
+        bundle exec danger
       - name: Build Android apk
         run: flutter build apk --build-number=$GITHUB_RUN_NUMBER
       - name: Install Firebase tools
