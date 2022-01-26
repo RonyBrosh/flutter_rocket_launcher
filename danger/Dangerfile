@@ -13,6 +13,9 @@ fail("fdescribe left in tests") if `grep -r fdescribe specs/ `.length > 1
 fail("fit left in tests") if `grep -r fit specs/ `.length > 1
 
 system("echo generating html")
+system("BITRISE_FLUTTER_COVERAGE_PATH = $BITRISE_FLUTTER_COVERAGE_PATH")
+system("BITRISE_FLUTTER_TESTRESULT_PATH = $BITRISE_FLUTTER_TESTRESULT_PATH")
+
 system("genhtml coverage/lcov.info -o coverage/html")
 message("This is a message")
 markdown("This is a markdown")
