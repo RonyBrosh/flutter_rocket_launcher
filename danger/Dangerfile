@@ -16,7 +16,7 @@ system("echo generating html")
 system("echo BITRISE_FLUTTER_COVERAGE_PATH = $BITRISE_FLUTTER_COVERAGE_PATH")
 system("echo BITRISE_FLUTTER_TESTRESULT_PATH = $BITRISE_FLUTTER_TESTRESULT_PATH")
 
-
+system("brew install lcov")
 system("genhtml $BITRISE_FLUTTER_COVERAGE_PATH -o /Users/vagrant/deploy/html")
 message("This is a message")
 markdown("This is a markdown")
