@@ -12,6 +12,7 @@ warn("Big PR") if git.lines_of_code > 500
 fail("fdescribe left in tests") if `grep -r fdescribe specs/ `.length > 1
 fail("fit left in tests") if `grep -r fit specs/ `.length > 1
 
+system("echo generating html")
 system("genhtml coverage/lcov.info -o coverage/html")
 message("This is a message")
 markdown("This is a markdown")
